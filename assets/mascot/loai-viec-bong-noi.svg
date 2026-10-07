@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" width="92" height="92" role="img" aria-label="Bóng Nói">
+<path d="M46 66v20M64 66v20" stroke="#1B1D2A" stroke-width="4" stroke-linecap="round" fill="none"></path>
+<path d="M28 60l-6 18l20-14z" fill="#F0524B"></path>
+<rect x="12" y="14" width="72" height="54" rx="18" fill="#F0524B"></rect>
+<circle cx="38" cy="36" r="3.5" fill="#1B1D2A"></circle>
+<circle cx="58" cy="36" r="3.5" fill="#1B1D2A"></circle>
+<ellipse cx="48" cy="50" rx="6" ry="5" fill="#1B1D2A"></ellipse>
+</svg>

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" width="92" height="92" role="img" aria-label="Tệp">
+<path d="M36 80v9M60 80v9" stroke="#1B1D2A" stroke-width="4" stroke-linecap="round" fill="none"></path>
+<path d="M12 26q0-6 6-6h20l8 8h32q6 0 6 6v40q0 6-6 6H18q-6 0-6-6z" fill="#E0701A"></path>
+<rect x="12" y="36" width="72" height="44" rx="6" fill="#FF9A3D"></rect>
+<circle cx="38" cy="56" r="3.5" fill="#1B1D2A"></circle>
+<circle cx="58" cy="56" r="3.5" fill="#1B1D2A"></circle>
+<path d="M43 65q5 4 10 0" stroke="#1B1D2A" stroke-width="2.5" stroke-linecap="round" fill="none"></path>
+</svg>

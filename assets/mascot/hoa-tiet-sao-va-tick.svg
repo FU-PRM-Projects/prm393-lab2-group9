@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="300" role="img" aria-label="Họa tiết Sao và tick">
+<defs>
+<pattern id="pat-star" width="120" height="120" patternUnits="userSpaceOnUse" patternTransform="rotate(8)">
+<path d="M28 12l3 9l9 3l-9 3l-3 9l-3-9l-9-3l9-3z" fill="#C9CFFB"></path>
+<circle cx="84" cy="24" r="4" fill="#FFD24A"></circle>
+<path d="M66 60l6 6l11-12" stroke="#C9CFFB" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"></path>
+<circle cx="24" cy="74" r="6" stroke="#C9CFFB" stroke-width="3" fill="none"></circle>
+<path d="M96 88l2 6l6 2l-6 2l-2 6l-2-6l-6-2l6-2z" fill="#FF9A3D"></path>
+<path d="M40 104q5-6 10 0t10 0" stroke="#C9CFFB" stroke-width="3" stroke-linecap="round" fill="none"></path>
+<circle cx="110" cy="56" r="2.5" fill="#C9CFFB"></circle>
+</pattern>
+</defs>
+<rect width="360" height="300" fill="#EEF0FE"></rect>
+<rect width="360" height="300" fill="url(#pat-star)"></rect>
+</svg>

@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="300" role="img" aria-label="Họa tiết Lưới nhiệt">
+<defs>
+<pattern id="pat-heat" width="112" height="84" patternUnits="userSpaceOnUse">
+<rect x="4" y="4" width="22" height="22" rx="6" fill="#2A2D3D"></rect>
+<rect x="32" y="4" width="22" height="22" rx="6" fill="#2E8FC2"></rect>
+<rect x="60" y="4" width="22" height="22" rx="6" fill="#FFD24A"></rect>
+<rect x="88" y="4" width="22" height="22" rx="6" fill="#2A2D3D"></rect>
+<rect x="4" y="32" width="22" height="22" rx="6" fill="#4FB7E8"></rect>
+<rect x="32" y="32" width="22" height="22" rx="6" fill="#2A2D3D"></rect>
+<rect x="60" y="32" width="22" height="22" rx="6" fill="#FF9A3D"></rect>
+<rect x="88" y="32" width="22" height="22" rx="6" fill="#F0524B"></rect>
+<rect x="4" y="60" width="22" height="22" rx="6" fill="#2A2D3D"></rect>
+<rect x="32" y="60" width="22" height="22" rx="6" fill="#3CC48A"></rect>
+<rect x="60" y="60" width="22" height="22" rx="6" fill="#2A2D3D"></rect>
+<rect x="88" y="60" width="22" height="22" rx="6" fill="#2E8FC2"></rect>
+</pattern>
+</defs>
+<rect width="360" height="300" fill="#1B1D2A"></rect>
+<rect width="360" height="300" fill="url(#pat-heat)"></rect>
+</svg>
