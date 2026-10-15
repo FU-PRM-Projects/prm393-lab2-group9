@@ -21,27 +21,89 @@ Quy tắc của log này:
 
 ## 0. UI ban đầu (Stitch)
 
-- **Bản DESIGN.md đưa cho Stitch (nguyên văn):**
+Nguồn: lịch sử chat của project Stitch `PRM393_Lab2` (stitch.withgoogle.com/projects/17773013488802061578), lấy lại ngày 15/10/2026. Lúc này app còn tên **Khe** và persona là sinh viên vừa học vừa làm ca tối; sau đó đổi thành **Nốt** và persona Khả Hân.
+
+- **Bản DESIGN.md đưa cho Stitch (nguyên văn):** file `ai/stitch-source/DESIGN-v0-Khe.md` (tải lên Stitch ngày 06/10/2026, 12:14). Đoạn mở đầu:
 
 ```
-TODO: dán đúng nội dung đã đưa vào Stitch.
+# DESIGN.md: Khe (study planner)
+## Overview
+Khe is an Android study planner for university students who also work evening
+shifts that change every week. The interface is calm, flat and quick to scan:
+each visit lasts under a minute and is usually one-handed. Material 3, light
+theme only, phone layout at 360x800 dp. All UI text is in Vietnamese.
 ```
 
-- **Prompt nguyên văn:**
+- **Prompt nguyên văn, lần 1** (06/10/2026, 12:14, kèm file DESIGN.md):
 
 ```
-TODO: dán đúng prompt đã gửi Stitch lần đầu.
+Tạo một hệ thống thiết kế bằng [DESIGN.md].
 ```
 
-- **Màn hình Stitch tạo ra:** TODO: liệt kê. Đề yêu cầu UI ban đầu phủ ít nhất flow chính, vì vậy cần ảnh của nhiều màn, không chỉ màn Deadline.
-- **Ảnh kết quả:** `assets/stitch/01-deadline-truoc.png` (màn Deadline). TODO: thêm ảnh các màn còn lại.
+- **Prompt nguyên văn, lần 2** (06/10/2026, 12:55):
+
+```
+Thiết kế màn hình "Hôm nay" (Today screen)
+```
+
+- **Năm yếu tố của prompt nằm ở đâu** (prompt ngắn, các yếu tố nằm trong DESIGN.md đi kèm):
+
+| Yếu tố | Câu nguyên văn trong DESIGN.md hoặc prompt |
+|---|---|
+| Persona | "university students who also work evening shifts that change every week" |
+| Task | "each visit lasts under a minute and is usually one-handed"; prompt 2: màn "Hôm nay" |
+| Mobile platform | "Android … Material 3, light theme only, phone layout at 360x800 dp" |
+| Constraints | "Every touch target is at least 48x48dp", "Body text is never smaller than 14sp", "Never color alone" |
+| Style | "calm, flat and quick to scan", "Don't use gradients, glassmorphism, heavy shadows" |
+
+- **Màn hình Stitch tạo ra ở giai đoạn đầu** (trước các vòng lặp có ghi log): Hôm nay (06/10), Kế hoạch, Deadline, Lịch bận. Toàn bộ prompt sau đó (19 lượt) xem ở lịch sử chat Stitch.
+- **Ảnh kết quả:** `assets/stitch/01-deadline-truoc.png` (màn Deadline). TODO: tải ảnh Kế hoạch và Lịch bận từ Stitch (Export → PNG) vào `assets/stitch/`. Ảnh chụp tự động của Stitch cho màn Hôm nay bị lỗi (chỉ hiện khung trống), nên cần chụp lại từ canvas.
 - **Nhận xét ban đầu:** giao diện dạng chồng thẻ, trông "quá AI" và nhàm, chưa giống các app quản lý việc quen thuộc (ClickUp). Màn Deadline dày và khó nhìn.
 
 ---
 
-## Vòng lặp 1 — Mật độ thông tin quá cao, tín hiệu khẩn cấp bị lặp
+## Vòng lặp 1 — Hôm nay: thấy cả "làm gì trước" lẫn "làm lúc nào"
 
-- **Màn hình:** Deadline (S04).
+- **Màn hình:** Hôm nay (S02). Ngày 06/10/2026, 18:38.
+- **Vấn đề có tên:** danh sách cho biết việc nào trước nhưng giấu thời gian; timeline cho biết thời gian nhưng giấu mức ưu tiên.
+- **Heuristic:** Nielsen #7, Flexibility and efficiency of use.
+- **Ảnh trước:** màn Stitch "Hôm nay (Day Timeline)". **Ảnh sau:** "Hôm nay - Danh sách" và "Hôm nay - Lịch ngày".
+
+**Prompt gửi Stitch (nguyên văn, đoạn đầu):**
+
+```
+Problem: a list view shows what to do first but hides when; a timeline shows when but hides
+priority. The user needs both, on the same data.
+Redesign the "Hôm nay" screen with two views of the same items, switched by a segmented control
+directly under the header: "Danh sách" and "Lịch ngày". Generate both views as two versions of
+the screen.
+```
+
+- **Quyết định:** Chấp nhận. Hai chế độ dùng chung một kiểu dòng; về sau thành nút chuyển "Danh sách / Theo giờ" ở 2.1 Chi tiết ngày.
+
+---
+
+## Vòng lặp 2 — Lịch ngày: thấy thời lượng và khoảng trống thật
+
+- **Màn hình:** Hôm nay, chế độ Lịch ngày. Ngày 06/10/2026, 18:42.
+- **Vấn đề có tên:** timeline dạng danh sách không cho thấy việc kéo dài bao lâu và khoảng trống lớn cỡ nào.
+- **Heuristic:** Nielsen #2, Match between system and the real world (giống chế độ ngày của app lịch).
+- **Ảnh trước:** "Hôm nay - Lịch ngày". **Ảnh sau:** "Hôm nay - Lịch ngày (Hour Grid)".
+
+**Prompt gửi Stitch (nguyên văn, đoạn đầu):**
+
+```
+Problem: the timeline list does not show how long things take or how big the free gaps really are.
+Redesign the "Lịch ngày" view as a day view with an hour grid, like a calendar app's day view.
+```
+
+- **Quyết định:** Chấp nhận. Chiều cao khối = thời lượng; khoảng trống từ 45 phút có nút "Thêm vào đây". Trở thành chế độ "Theo giờ".
+
+---
+
+## Vòng lặp 3 — Mật độ thông tin quá cao, tín hiệu khẩn cấp bị lặp
+
+- **Màn hình:** Deadline (S04). Ngày 07/10/2026. Lần thử đầu lúc 14:32 (màn "Deadline (Tinh giản)"), bản chốt lúc 15:46.
 - **Vấn đề có tên:** mỗi dòng việc có 7 thành phần; mức khẩn cấp hiện ba lần (tiêu đề nhóm, chip màu, vòng checkbox đỏ).
 - **Heuristic:** Nielsen #8, Aesthetic and minimalist design.
 - **Liên quan persona:** Hân có 7–8 deadline mỗi tuần và xem app dưới một phút, nên phải đọc lướt được.
@@ -103,7 +165,7 @@ Changes:
 
 ---
 
-## Vòng lặp 2 — Nhãn điều hướng không nhất quán và hành động chính bị trùng
+## Vòng sửa lỗi (07/10) — Nhãn điều hướng không nhất quán và hành động chính bị trùng
 
 - **Màn hình:** Deadline (S04) và trạng thái rỗng của Deadline.
 - **Vấn đề có tên:** cùng một tab có hai tên khác nhau; màn rỗng có hai nút làm cùng một việc; FAB che nội dung.
@@ -128,7 +190,7 @@ Fix these issues. Do not change anything else.
 
 ---
 
-## Vòng lặp 3 — TODO: tên vấn đề (phải khác vòng 1 và 2)
+## Vòng lặp tiếp theo — TODO: tên vấn đề (phải khác các vòng trên)
 
 - **Màn hình:** TODO
 - **Vấn đề có tên và heuristic:** TODO
