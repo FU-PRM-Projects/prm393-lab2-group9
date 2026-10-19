@@ -1,4 +1,4 @@
-# DESIGN.md: Khe (study planner)
+# DESIGN.md: Study Planner
 ## Overview
 Khe is an Android study planner for university students who also work evening
 shifts that change every week. The interface is calm, flat and quick to scan:
