@@ -1,6 +1,6 @@
 # DESIGN.md: Study Planner
 ## Overview
-Khe is an Android study planner for university students who also work evening
+Study Planner is an Android study planner for university students who also work evening
 shifts that change every week. The interface is calm, flat and quick to scan:
 each visit lasts under a minute and is usually one-handed. Material 3, light
 theme only, phone layout at 360x800 dp. All UI text is in Vietnamese.
