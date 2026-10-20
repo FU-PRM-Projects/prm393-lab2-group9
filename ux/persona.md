@@ -2,7 +2,7 @@
 
 **Đề tài:** Study Planner "Nốt" cho sinh viên và người trẻ bận rộn có lịch trình dày đặc (môn học, đồ án, nghiên cứu khoa học, việc làm thêm). App giúp gom deadline từ nhiều nguồn về một chỗ, chia việc dài hạn thành các giai đoạn khớp số ngày, cho thấy ngày nào đang quá tải qua lịch nhiệt, và sắp xếp lại kế hoạch trong vài giây khi có việc phát sinh hoặc đổi ca đột xuất.
 
-Nguồn thiết kế: Trang **00 Persona** trong file Figma [`PRM393-LAB2-Study-Planner`](https://www.figma.com/design/OkTRYkrsoJ0nkluNO4mrHz/PRM393-LAB2-Study-Planner?node-id=767-1906).
+Nguồn thiết kế: Trang **00 Persona** trong file Figma [`PRM393-LAB2-Study-Planner`](https://www.figma.com/design/OkTRYkrsoJ0nkluNO4mrHz/PRM393-LAB2-Study-Planner?node-id=644-2).
 
 ---
 
@@ -22,64 +22,81 @@ Hệ thống thiết kế gồm 4 persona đại diện cho sinh viên các năm
 *Ghi chú:*
 - **C** = Flow chính (*Core Flows*: C1, C2, C3, C4)
 - **P** = Flow phụ (*Peripheral Flows*: P1, P6, P7, P8...)
-- **S** = Trạng thái & xử lý lỗi (*State & Error Recovery*: S1, S2)
+- **S** = Trạng thái & xử lý lỗi (*State & Error Recovery*: S1, S2, S3)
+- Ô có ● là flow dùng để kiểm tra persona đó (chấm lớn trên page 00). Định nghĩa từng flow ở `ux/user-flow.md`, cùng mã với page 01 và 06 trong Figma.
+- Các flow không có cột ở đây (P2, P3, P4, P5, S2, S3) là flow chung. Riêng P3 · Trễ deadline cũng dùng để kiểm tra Minh.
 
 ---
 
 ## 2. Chi tiết từng Persona
 
-### 2.1 Persona chính: Minh (Primary Persona)
+### 2.1 Persona chính: Minh (Primary Persona) — "Người điều phối nhiều app"
 
 > *"Mình mệt vì lúc nào cũng phải chuyển qua lại giữa Calendar, Notion, ClickUp và Linear."*
 
+Theo frame `Persona · Minh (template chuẩn)` ở page 00.
+
 | Mục | Chi tiết |
 |---|---|
-| **Độ tuổi / Giới tính** | 21–22 tuổi · Nam (giả định) |
-| **Vai trò** | Sinh viên năm cuối, Trưởng nhóm nghiên cứu khoa học (nhóm 4 người), làm thêm |
-| **Bối cảnh học tập** | Đang học nhiều môn, làm đề tài NCKH cấp trường, chuẩn bị nộp paper hội nghị (hạn 15/11), làm thêm ngoài giờ |
-| **Thiết bị & Nền tảng** | iPhone 12 (chính, dùng cả ngày giữa các môn và ca làm), Laptop |
+| **Bio** | Sinh viên năm cuối, đang học nhiều môn, làm trưởng nhóm nghiên cứu khoa học 4 người và đi làm thêm. Đang chuẩn bị nộp paper hội nghị hạn 15/11 |
+| **Tuổi** | 22 tuổi (giả định) |
+| **Thiết bị & nền tảng** | iPhone 12 (chính), laptop |
 | **Công cụ hiện dùng** | Google Calendar, Notion, ClickUp, Linear |
 
-#### Thang đo đặc tính người dùng
-- **Thiết bị:** Nghiêng hẳn về Điện thoại (90% trên di động)
-- **Mỗi lần mở app:** Vài giây (mở nhanh giữa các tiết học hoặc chuyển ca)
-- **Lịch tuần:** Hay thay đổi (nhiều việc phát sinh mỗi tuần)
-- **Trình độ công nghệ:** Thành thạo công nghệ
+#### Vị trí trên các thang đo (ước lượng của nhóm)
+- **Thiết bị dùng:** gần hẳn về phía điện thoại.
+- **Mỗi lần mở app:** vài giây.
+- **Lịch tuần:** hay thay đổi.
+- **Công nghệ:** thành thạo.
 
-#### Động lực thúc đẩy
-1. Gọn một chỗ (5/5)
-2. Đúng hạn (5/5)
-3. Theo dõi nhóm (4/5)
-4. Kiểm soát tiến độ (4/5)
+#### Mục tiêu và nhu cầu
+- Không lỡ mốc giữa chừng của các deadline dài như paper hội nghị.
+- Mở app là biết hôm nay mình và nhóm cần làm gì.
+- Thôi chuyển qua lại giữa nhiều app để theo dõi một việc.
 
-#### Mục tiêu & Khó khăn
-- **Mục tiêu:**
-  - Ghi deadline theo môn học hoặc theo từng dự án / đề tài.
-  - Chia deadline dài thành các giai đoạn cụ thể khớp đúng số ngày tới hạn chót.
-  - Ghi chú lại ai đang làm phần nào ở từng giai đoạn; lưu trữ kết quả và tệp đính kèm.
-- **Khó khăn:**
-  - Phải ghi lịch ở Calendar, theo dõi tiến độ ở Notion, giao việc ở ClickUp và Linear.
-  - Chuyển qua lại nhiều app gây mệt mỏi, phân mảnh thông tin và rất dễ sót đầu việc.
-  - Không nhớ đã ghi chú gì, đã hoàn thành gì ở từng giai đoạn.
-- **Thói quen:**
-  - Dùng điện thoại cả ngày giữa các môn học và giờ làm thêm.
-  - Việc phát sinh thêm gần như mỗi tuần.
-  - Lưu trữ và nộp bài làm ở nhiều định dạng tệp: DOCX, PDF, XLSX, ZIP.
+#### Khó khăn (pain point)
+- Ghi lịch ở Calendar, theo dõi ở Notion, giao việc ở ClickUp và Linear.
+- Chuyển qua lại nhiều app nên mệt và dễ sót việc.
+- Không nhớ đã ghi chú, đã làm gì ở từng giai đoạn.
+
+#### Hành vi và thói quen
+- Dùng iPhone cả ngày, mở app vài giây giữa giờ học và ca làm.
+- Việc phát sinh thêm gần như mỗi tuần.
+- Lưu bài ở nhiều loại tệp: DOCX, PDF, XLSX, ZIP.
+
+#### Động lực (theo thứ tự ưu tiên)
+1. Gọn một chỗ
+2. Đúng hạn
+3. Theo dõi được nhóm
+4. Kiểm soát được tiến độ
+
+#### Ràng buộc
+- Một deadline có nhiều người cùng làm (nhóm 4 người).
+- Deadline kéo dài cả tháng (paper 15/11: 31 ngày).
+- Lịch tuần thay đổi, phải sắp lại thường xuyên.
+
+#### Nhu cầu accessibility
+Minh không có nhu cầu accessibility riêng. Giới hạn theo tình huống: thường dùng một tay và chỉ liếc vài giây giữa hai việc, nên nút chính phải ở nửa dưới màn hình và trạng thái phải đọc được trong một lần nhìn.
 
 #### Job To Be Done
-> *"Khi có một deadline dài như nộp paper hội nghị 15/11, tôi muốn chia từ hôm nay tới hạn chót thành các giai đoạn có số ngày, ghi chú và tệp, để không phải mở thêm app nào khác."*
+> *"Khi có deadline dài như nộp paper hội nghị 15/11, tôi muốn chia từ hôm nay tới hạn chót thành các giai đoạn có ngày, ghi chú và tệp, để không phải mở thêm app nào khác."*
 
-#### Một ngày điển hình của Minh
-- **08:00:** Nhận thông báo nhắc: *"Hôm nay là ngày 3/7 của giai đoạn Chạy thực nghiệm"*.
-- **12:30 [C1]:** Thêm deadline Paper 15/11, chia làm 4 giai đoạn khớp đúng 31 ngày.
-- **16:00 [C1]:** Ghi chú tiến độ: *"Lan lo phần Check đạo văn"*.
-- **23:00 [C2]:** Ghi chú kết quả thực nghiệm, tải file XLSX và PDF lên giai đoạn.
+#### Kịch bản một ngày của Minh
+- **08:00:** nhận nhắc "hôm nay là ngày 3/7 của giai đoạn Chạy thực nghiệm" (C3).
+- **12:30 [C1]:** thêm deadline Paper 15/11, chia 4 giai đoạn khớp 31 ngày.
+- **16:00 [C1]:** ghi chú "Lan lo phần Check đạo văn".
+- **23:00 [C2]:** ghi chú kết quả, tải file XLSX và PDF lên giai đoạn.
 
-#### Tiêu chí đo lường thành công
-- **1 app duy nhất:** Thay thế hoàn toàn Calendar, Notion, ClickUp trong việc theo dõi học tập.
-- **31/31 ngày:** Các giai đoạn phủ kín lịch trình từ lúc bắt đầu tới hạn chót.
-- **Mọi loại tệp:** Đính kèm trực tiếp DOCX, PDF, XLSX, ZIP vào từng giai đoạn.
+#### Tiêu chí thành công
+- **1 app:** thay Calendar, Notion, ClickUp, Linear cho mọi deadline.
+- **31/31 ngày:** giai đoạn phủ kín từ hôm nay tới hạn chót.
+- **< 60 giây:** tạo một deadline 4 giai đoạn bằng AI gợi ý (mục tiêu, giả định).
 - **Kiểm tra bằng flow:** C1, C2, C3, P3.
+
+#### Nguồn và giả định
+- Nguồn: lời kể của một sinh viên năm cuối (Minh), 17/10/2026, chuyển qua nhóm.
+- Giả định chưa kiểm chứng: tuổi, mức trên các thang đo, mục tiêu "< 60 giây". Cần phỏng vấn thêm 2–3 sinh viên năm cuối.
+- Giả thuyết UI: nếu AI gợi ý giai đoạn từ mô tả, Minh tạo deadline 4 giai đoạn trong dưới 60 giây. Kiểm chứng: test usability với 3 sinh viên năm cuối, bấm giờ flow C1.
 
 ---
 
@@ -113,14 +130,14 @@ Hệ thống thiết kế gồm 4 persona đại diện cho sinh viên các năm
 #### Tiêu chí đo lường thành công
 - **≤ 3 chạm:** Thêm xong một khung giờ bận mới.
 - **< 10 giây:** Lùi một giai đoạn bị trùng sang ngày khác.
-- **Offline:** Lời nhắc và danh sách deadline vẫn hoạt động chính xác khi mất mạng.
+- **Offline:** lời nhắc vẫn đến đúng giờ khi mất mạng.
 - **Kiểm tra bằng flow:** P8, C4, C3.
 
 ---
 
 ### 2.3 Persona phụ: Bảo Ngọc (Secondary Persona)
 
-> *"Mình không biết bắt đầu từ đâu."*
+> *"Mình không biết nên bắt đầu học từ đâu."*
 
 | Mục | Chi tiết |
 |---|---|
@@ -147,7 +164,9 @@ Hệ thống thiết kế gồm 4 persona đại diện cho sinh viên các năm
 > *"Khi nhận một bài lớn đầu kỳ, tôi muốn được hướng dẫn chia thành các bước nhỏ có giờ làm, để biết hôm nay nên làm gì."*
 
 #### Tiêu chí đo lường thành công
-- **< 2 phút:** Hoàn thành onboarding làm quen và tạo được deadline đầu tiên có chia bước.
+- **< 2 phút:** tới được deadline đầu tiên (gồm làm quen 3 câu ở P1).
+- **< 1 phút:** chia một bài thành bước (P7).
+- **0** thuật ngữ khó hiểu như "sprint" trên các màn Ngọc dùng.
 - **Kiểm tra bằng flow:** P1, C1, P7, S1.
 
 ---
@@ -165,19 +184,26 @@ Hệ thống thiết kế gồm 4 persona đại diện cho sinh viên các năm
 
 #### Mục tiêu & Nỗi đau
 - **Mục tiêu:**
-  - Giao nộp đúng hạn các task và báo cáo tiến độ công việc.
-  - Lời nhắc thông minh: chỉ nhắc vào lúc không có lịch họp.
-  - Tách bạch rõ ràng giữa việc ở công ty và khóa học buổi tối.
+  - Giao đúng hạn các task và báo cáo công việc.
+  - Lời nhắc đến lúc không họp.
+  - Tách việc công ty và khoá học buổi tối.
 - **Khó khăn:**
-  - Chuông nhắc việc vang lên giữa cuộc họp quan trọng khiến anh phải tắt toàn bộ thông báo.
-  - Deadline công việc bị phân tán trong nhiều kênh: Slack, Jira, email, chat nhóm.
-  - Khi bật chế độ phóng to chữ 130% trên điện thoại, rất nhiều ứng dụng bị vỡ layout, tràn chữ, che mất nút bấm.
+  - Nhắc kêu giữa cuộc họp nên anh tắt hết thông báo.
+  - Deadline công việc nằm rải rác trong email, chat.
+  - Phóng to chữ thì nhiều app vỡ layout.
+- **Thói quen:**
+  - Ngồi máy khoảng 9 tiếng mỗi ngày.
+  - Dùng app lúc nghỉ trưa và trên đường về.
+  - Học một khoá online vào buổi tối.
+
+#### Job To Be Done
+> *"Khi một giai đoạn công việc sắp đến giờ làm mà tôi đang họp, tôi muốn lùi lời nhắc bằng một chạm, để không phải tắt hết thông báo."*
 
 #### Tiêu chí đo lường thành công
-- **1 chạm:** Lùi một buổi làm khi có việc đột xuất.
-- **Text scale 130%:** Giao diện co giãn chuẩn xác, không vỡ layout, không cụt chữ.
-- **Cài đặt không làm phiền:** Thông báo tôn trọng khung giờ bận/họp.
-- **Kiểm tra bằng flow:** P8, C1, C3.
+- **1 chạm:** lùi một lời nhắc ("Nhắc lại 15 phút" trên thông báo `13p`).
+- **130%:** cỡ chữ 130% vẫn đọc tốt trên màn 360 dp (giả định, chưa kiểm tra trên Figma).
+- **2 nhóm:** việc công ty và khoá học tách riêng (hai dự án ở bước B1 của Thêm deadline).
+- **Kiểm tra bằng flow:** C1, C3, P8.
 
 ---
 
@@ -189,16 +215,20 @@ Hệ thống thiết kế gồm 4 persona đại diện cho sinh viên các năm
 
 ## 4. Persona dẫn tới các quyết định thiết kế quan trọng
 
-| Đặc điểm Persona | Hệ quả thiết kế trong Nốt | Màn hình tương ứng |
+| Đặc điểm Persona | Hệ quả thiết kế trong Nốt | Màn hình |
 |---|---|---|
-| **Minh** — Đề tài dài hạn, nhiều môn, NCKH | Deadline hỗ trợ chia thành nhiều giai đoạn khớp số ngày; cho phép đính kèm tệp (DOCX, PDF, XLSX, ZIP) và ghi chú ai làm phần nào | Chi tiết deadline (Device 7d), Chi tiết giai đoạn (Device 7s, 7s1, 7s2), Thêm ghi chép (Device 7t) |
-| **Minh** — Chuyển qua lại 4 app (Calendar, Notion, ClickUp, Linear) | Tích hợp "All-in-one": vừa có lịch bận (Calendar), vừa có quản lý giai đoạn & tệp (Notion), vừa có theo dõi deadline (ClickUp/Linear) | Toàn bộ 7 phân hệ của app |
-| **Khoa** — Bị quản lý đổi ca đột xuất | Thêm giờ bận trong ≤ 3 chạm; tự động phát hiện giai đoạn bị trùng và hỗ trợ lùi ngày trong < 10 giây; có nút Hoàn tác ngay | Lịch tuần & Giờ bận (Device 4.2), Chi tiết ngày (Device 4a, 4b, 3d) |
-| **Khoa** — Mạng 4G chập chờn trên xe buýt | Hỗ trợ lưu trữ offline, thông báo đẩy cục bộ, trạng thái lỗi mạng rõ ràng với nút Thử lại | Trạng thái lỗi (S1), Thông báo đẩy màn hình khóa (Device 13c) |
-| **Bảo Ngọc** — Sinh viên năm 1, lần đầu dùng app | Onboarding 3 câu hỏi ngắn gọn, ngôn ngữ gần gũi, tính năng AI chia nhỏ bài lớn thành các phiên làm 45 phút | Làm quen · Cá nhân hóa (Device 2a, 2b, 2c), Chia nhỏ việc -> Xếp giờ (Device 2c0, 2c3) |
-| **Quốc Huy** — Chỉnh font chữ to 130% | Layout thiết kế co giãn linh hoạt bằng Auto Layout, kiểm thử riêng trên màn hình phóng to 130%, đảm bảo vùng chạm ≥ 48dp | Công cụ demo & Kiểm tra lỗi (Device 7.4), Toàn bộ màn hình |
-| **Quốc Huy** — Tránh nhắc chuông khi đang họp | Tùy chọn nhắc nhở thông minh: rung nhẹ hoặc hiển thị trong danh sách thông báo thay vì phát âm thanh trong giờ bận | Cài đặt thông báo (Device 7.2), Danh sách thông báo (Device 13A, 13B) |
-| **Tất cả** — Thao tác bằng một tay, liếc nhanh | Nút chính, FAB, thanh điều hướng nằm ở nửa dưới màn hình; lịch nhiệt 5 mức giúp nhận biết ngày nặng chỉ trong 1 lần liếc | Hôm nay (Device 3), Lịch nhiệt (Device 4), Deadline (Device 6.1) |
+| **Minh** — Deadline dài cả tháng, nhóm 4 người | Thêm deadline 5 bước: môn hoặc dự án, deadline, mô tả, giai đoạn, xem lại. Giai đoạn phải phủ kín số ngày tới hạn ("Đã chia 31/31 ngày"); mỗi giai đoạn có giờ nhắc mỗi ngày | `6`, `6b2`, `6b2a`, `6b3`, `6b4`, `6b5`, `7c` |
+| **Minh** — Mô tả việc rồi mới chia | Bước B3 Mô tả: AI dùng mô tả để gợi ý giai đoạn. Người dùng sửa, xoá, tạo lại, hoặc tự nhập. AI lỗi thì mô tả vẫn được giữ | `6b2a`, `6b3` (4 trạng thái) |
+| **Minh** — Không nhớ đã làm gì ở từng giai đoạn | Mỗi giai đoạn có ghi chép và tài liệu (DOCX, PDF, XLSX, ZIP, ảnh, link) | `7s`, `7s1`, `7s2`, `7t` |
+| **Minh** — Chuyển qua lại 4 app | Gom deadline, giai đoạn, tài liệu và lời nhắc vào một app; thông báo mở thẳng đúng giai đoạn | `13p`, `13`, `7s` |
+| **Đăng Khoa** — Bị đổi ca đột xuất | Thêm giờ bận ở lịch tuần; nhấn giữ một việc để Để mai hoặc Chia nhỏ | `9`, `9d`, `9e` |
+| **Đăng Khoa** — Một ngày quá nặng | Lịch nhiệt theo độ nặng; chạm ngày đỏ để xem gợi ý giãn việc sang ngày nhẹ hơn trước hạn, có Hoàn tác | `3`, `4`, `4b`, `4c`, `3d` |
+| **Đăng Khoa** — 4G chập chờn | Trạng thái lỗi mất mạng có Thử lại; lời nhắc là thông báo trên máy | Trạng thái Lỗi mất mạng của `5`, `13p` |
+| **Bảo Ngọc** — Lần đầu dùng app | Làm quen 3 câu hỏi ngắn (có Để sau, Bỏ qua); màn rỗng chỉ có một nút Thêm deadline | `O1`–`O4`, trạng thái Rỗng của `5` |
+| **Bảo Ngọc** — Không biết chia bài lớn | Chia nhỏ việc hay bị dời: chọn lý do, Nốt gợi ý 3 bước khoảng 45 phút, Ngọc tự chọn giờ cho từng bước | `2c0`, `2c`, `2c2`, `2c3`, `3c` |
+| **Quốc Huy** — Bị nhắc lúc đang họp | Thông báo có nút "Nhắc lại 15 phút"; giờ làm 8:00–17:00 thêm làm giờ bận | `13p`, `9d` |
+| **Quốc Huy** — Phóng to chữ 130% | Màn dùng Auto Layout để chữ dài xuống dòng thay vì bị cắt. Chưa có frame kiểm tra 130% trong Figma | Mọi màn |
+| **Tất cả** — Dùng một tay, liếc nhanh | Nút chính, nút + và thanh điều hướng ở nửa dưới màn hình; thẻ "Hạn hôm nay" ở đầu `2` | `2`, `3`, `5` |
 
 ---
 
@@ -207,5 +237,5 @@ Hệ thống thiết kế gồm 4 persona đại diện cho sinh viên các năm
 - Không đồng bộ trực tiếp tin nhắn từ Zalo/Slack (người dùng thêm deadline hoặc dùng tính năng chia việc nhanh).
 - Không xây dựng tính năng mạng xã hội hoặc chat trực tiếp trong app.
 - Không thay thế phần mềm kế toán hoặc quản lý tiền bạc freelance.
-- Không tập trung vào giao diện web/desktop (ưu tiên tối ưu cho thiết bị di động Android màn hình 360 × 800 dp, mở rộng 412 dp).
+- Không tập trung vào giao diện web/desktop (ưu tiên điện thoại Android khung 360 × 800 dp, kiểm tra thêm ở 412 dp).
 

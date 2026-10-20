@@ -1,70 +1,152 @@
-# Screen spec — Ý đồ từng phân hệ và màn hình
+# Screen spec — ý đồ từng màn hình
 
-Hệ thống giao diện Nốt (Study Planner) trên Figma (page `03 Final UI` & `06 Prototype`) được tổ chức thành **7 phân hệ** với hơn 25 khung thiết bị, phục vụ 4 persona (Minh, Đăng Khoa, Bảo Ngọc, Quốc Huy). Chi tiết dựng giao diện và ánh xạ Flutter xem tại [`handoff/flutter-handoff.md`](file:///e:/prm393-lab2-group9/handoff/flutter-handoff.md).
+Mỗi màn trả lời một câu hỏi của người dùng và có đúng một hành động chính. Mã màn là mã trong tên frame ở page `03 Final UI` của Figma (ví dụ `7s` là `Device · 7s · Giai đoạn: Chạy thực nghiệm`). Mã flow giống page 01 và 06 (xem [`ux/user-flow.md`](../ux/user-flow.md)). Cách dựng bằng Flutter ở [`handoff/flutter-handoff.md`](../handoff/flutter-handoff.md).
 
----
-
-## 1. Bảng phân hệ và màn hình
-
-| Nhóm / Mã | Phân hệ · Màn hình | Device Frame (Figma) | Câu hỏi màn hình trả lời | Hiển thị nội dung gì | Hành động chính | Phục vụ Persona & Flow |
-|---|---|---|---|---|---|---|
-| **01 · Xác thực** | 1.1 Đăng nhập & Đăng ký | Device 1, 1b, 1c, 1d | "Vào app bằng cách nào?" | Mascot Nốt, form Đăng nhập/Đăng ký (Google / Email), thông báo lỗi và trạng thái xác thực | Đăng nhập / Chuyển sang Đăng ký | Tất cả (P2, S1) |
-| | 1.2 Quên mật khẩu | Device 1e, 1f, 1g, 1h | "Làm sao lấy lại quyền truy cập?" | Nhập email nhận mã OTP, xác minh OTP 6 số, đặt mật khẩu mới, thông báo thành công | Đặt lại mật khẩu | Tất cả (P3, S1) |
-| **02 · Làm quen** | 2.1 Onboarding 3 câu hỏi & Cá nhân hoá | Device 2a, 2b, 2c | "App này giúp được gì cho mình?" | 3 câu hỏi trắc nghiệm (Năm học & khối ngành, khung giờ học/làm việc, thói quen chia nhỏ việc), mascot chào đón | Hoàn thành cá nhân hóa | Bảo Ngọc, Đăng Khoa (P1) |
-| **03 · Hôm nay** | 3.1 Hôm nay | Device 3 (gốc) | "Bây giờ làm gì tiếp?" | Banner tóm tắt công việc & mascot Nốt Tập Trung; thẻ "Làm tiếp" việc gấp nhất; dải lịch bận hôm nay; deadline gần nhất | Chạm thẻ "Làm tiếp" hoặc việc gấp | Tất cả (C1, C4) |
-| | 3.2 Chia nhỏ việc & Xếp giờ | Device 2c0, 2c3 | "Chia việc lớn này ra các slot thế nào?" | Đề xuất chia nhỏ deadline thành các slot 45 phút, gợi ý khung giờ trống để kéo/xếp vào lịch | Xác nhận xếp lịch slot 45p | Bảo Ngọc, Minh (P7) |
-| | 3.3 Bảng thành tích tuần | Device 3b | "Tuần này mình đã hoàn thành được bao nhiêu?" | Tổng kết việc đã nộp trong tuần, chuỗi ngày đúng hạn (streak), điểm tập trung, mascot Nốt Xong | Tiếp tục duy trì phong độ | Tất cả (C3) |
-| **04 · Kế hoạch** | 4.1 Lịch nhiệt & Chi tiết ngày | Device 4, 4a, 4b, 4c, 3d | "Ngày nào đang quá tải? Dời bớt việc đi đâu?" | Lịch nhiệt tháng heat-0 đến heat-5 (số việc, mascot); danh sách việc và timeline giờ của ngày; bottom sheet dời việc | Chạm ngày quá tải để dời việc | Tất cả (C4, S2) |
-| | 4.2 Tuần & Giờ bận & Hoãn việc | Device 4.2 | "Tuần này trống lúc nào? Thêm giờ bận thế nào?" | Dải 7 ngày theo tuần; danh sách ca làm/lịch học xen khung trống; nút thêm giờ bận và hoãn việc tự động | Thêm giờ bận / Hoãn việc | Đăng Khoa, Quốc Huy (P8, C4) |
-| **05 · Thông báo** | 5.1 Danh sách thông báo | Device 13A (nền nhạt), 13B (hộp thư) | "Có nhắc nhở hoặc thay đổi gì mới?" | Danh sách thông báo theo nhóm: Đến hạn, Thay đổi lịch, Lời khen thành tích; trạng thái đã đọc/chưa đọc | Mở chi tiết deadline từ thông báo | Tất cả (C3, P6) |
-| | 5.2 Thông báo đẩy màn khóa | Device 13c | "Nhắc nhở hiện ngoài màn hình thế nào?" | Thẻ thông báo lock screen hiển thị tên deadline, thời gian còn lại, hành động nhanh (Đã xong / Nhắc lại sau 15p) | Chạm vào xem hoặc đánh dấu xong | Minh, Đăng Khoa, Quốc Huy |
-| **06 · Deadline** | 6.1 Danh sách deadline | Device 6.1 | "Việc nào gấp nhất? Phân nhóm ra sao?" | Segmented "Theo hạn / Theo môn-dự án"; các nhóm Quá hạn, Hôm nay, Tuần này, Sau đó, Đã nộp | FAB "+" thêm deadline | Tất cả (C1, P4) |
-| | 6.2 Lọc theo môn & dự án | Device 6.2 | "Môn/dự án này có những đầu việc nào?" | Danh sách nhóm theo môn học (PRM393, MLN111, WDP301...) và dự án NCKH / freelance | Xem tiến độ từng môn/dự án | Minh, Bảo Ngọc (P4) |
-| | 6.3 Thêm deadline nhanh / AI | Device 6.3 | "Ghi nhận deadline mới thế nào cho nhanh?" | Form nhập nhanh hoặc dán văn bản để AI gợi ý phân rã thành các giai đoạn (phase) | Lưu deadline & tạo giai đoạn | Minh, Bảo Ngọc (C1, P7) |
-| | 6.4 Chi tiết giai đoạn, nộp & ghi chép | Device 7d, 7s, 7s1, 7s2, 7t | "Giai đoạn này ai phụ trách? File nộp ở đâu?" | Stepper 4 giai đoạn, phân công thành viên, chip tệp đính kèm (DOCX, PDF, XLSX, ZIP), ghi chép nhóm, nút Nộp | Đánh dấu hoàn thành giai đoạn / Nộp | Minh, Lan (C2, C3) |
-| | 6.5 Sửa & Xóa deadline | Device Sửa, Overlay Xóa, Device 5e | "Cần đổi hạn hoặc hủy việc thì làm sao?" | Form chỉnh sửa thông tin deadline, dialog xác nhận xóa có cảnh báo mất giai đoạn | Xác nhận sửa / Xóa (có hoàn tác) | Tất cả (P5) |
-| | 6.6 Xử lý quá hạn | Device 5o1, 7o2, 5o2, Overlay Bỏ, 5o3 | "Việc trễ hạn rồi thì giải quyết thế nào?" | 3 tùy chọn cứu vãn: Nộp muộn (ghi nhận thời gian), Dời hạn mới, hoặc Bỏ việc (xác nhận) | Chọn cách xử lý quá hạn | Tất cả (P6, S2) |
-| **07 · Hồ sơ · Cài đặt** | 7.1 Hồ sơ cá nhân | Device 7.1 | "Thông tin tài khoản và kết nối thế nào?" | Avatar, tên sinh viên/người dùng, khối ngành, liên kết Google Calendar | Xem và chỉnh sửa hồ sơ | Tất cả |
-| | 7.2 Cài đặt & Giờ họp (DND) | Device 7.2 | "Làm sao để app không làm phiền khi đang họp?" | Cài đặt nhắc hạn, chế độ Không làm phiền (DND) tự động im lặng trong khung giờ họp cố định | Lưu khung giờ DND | Quốc Huy, Đăng Khoa (P8) |
-| | 7.3 Hướng dẫn sử dụng | Device 7.3 | "Tính năng này dùng thế nào?" | Các thẻ mẹo hướng dẫn: cách chia nhỏ việc 45p, cách dời việc tránh quá tải, mẹo quản lý tệp | Đọc hướng dẫn | Bảo Ngọc, người dùng mới |
-| | 7.4 Demo kiểm tra lỗi & Text scale 130% | Device 7.4 | "Giao diện có bị vỡ khi chữ phóng to không?" | Bảng chuyển đổi giả lập lỗi mạng (offline), xung đột lịch và text scale 130% để kiểm tra tính co giãn UI | Bật/tắt kiểm thử responsive | Quốc Huy (Hỗ trợ trợ năng) |
+Đọc lại từ Figma ngày 20/10/2026.
 
 ---
 
-## 2. Dữ liệu mẫu thống nhất toàn hệ thống (Mock Data)
+## 1. Màn hình theo nhóm
 
-Bộ dữ liệu mẫu thống nhất phản ánh đúng thực tế đồ án NCKH của Minh, ca làm xoay của Đăng Khoa, bài tập đồ họa của Bảo Ngọc và lịch họp của Quốc Huy:
+### 01 · Xác thực
 
-### 2.1 Deadline lớn nhiều giai đoạn (NCKH Paper — Minh làm Lead)
-- **Tên:** Báo cáo Khoa học NCKH (Paper 15/11)
-- **Môn / Dự án:** Nghiên cứu Khoa học (NCKH)
-- **Hạn chót:** 15/11 23:59 (Tổng thời lượng: 31 ngày)
-- **Mức quan trọng:** Cao
-- **Các giai đoạn (Phases):**
-  1. *Giai đoạn 1 (Đề cương nghiên cứu):* Hạn 25/10 · Phụ trách: Lan · Trạng thái: Đã hoàn thành (100%)
-  2. *Giai đoạn 2 (Thu thập & xử lý dữ liệu):* Hạn 02/11 · Phụ trách: Minh · Trạng thái: Đang thực hiện (60%)
-  3. *Giai đoạn 3 (Bản thảo báo cáo):* Hạn 10/11 · Phụ trách: Minh & Lan · Trạng thái: Chưa bắt đầu
-  4. *Giai đoạn 4 (Phản biện & nộp bài cuối):* Hạn 15/11 · Phụ trách: Cả nhóm · Trạng thái: Chưa bắt đầu
-- **Tệp đính kèm (Attachments):**
-  - `De-cuong-NCKH-v2.docx` (DOCX · 2.4 MB)
-  - `So-lieu-khao-sat-oct.xlsx` (XLSX · 1.1 MB)
-  - `Huong-dan-trinh-bay.pdf` (PDF · 4.8 MB)
-  - `Source-code-notebooks.zip` (ZIP · 18.2 MB)
-
-### 2.2 Các deadline khác trong tuần
-| Deadline | Nhóm việc | Hạn nộp | Mức quan trọng | Tiến độ / Trạng thái | Persona liên quan |
+| Mã | Màn | Câu hỏi màn trả lời | Nội dung | Hành động chính | Flow |
 |---|---|---|---|---|---|
-| Lab 2: Thiết kế UI Figma | Môn học · PRM393 | Hôm nay 23:59 | Cao | 2/3 buổi (Đang làm) | Tất cả sinh viên |
-| Quiz ITE302c tuần 1 | Môn học · ITE302c | Trễ 1 ngày (Quá hạn) | Cao | 0/1 buổi (Cần xử lý quá hạn) | Minh, Đăng Khoa |
-| Moodboard & Typography poster | Môn học · Graphic Design | Còn 2 ngày | Vừa | 2/4 slot 45p | Bảo Ngọc |
-| Báo cáo sprint 2 | Môn học · WDP301 | Còn 3 ngày | Vừa | 1/2 buổi | Minh, Đăng Khoa |
-| Tiểu luận Triết học | Môn học · MLN111 | Còn 5 ngày | Vừa | 0/3 buổi | Bảo Ngọc |
-| Code review & Release PR | Công việc / Dự án | Ngày mai 17:00 | Cao | Chưa nộp (DND 14:00-16:00) | Quốc Huy |
+| `1` | Đăng nhập | "Vào app bằng cách nào?" | Mascot, tên "Nốt", câu "Gom mọi deadline về một chỗ. Biết hôm nay nên làm gì trước." | Tiếp tục với Google (phụ: Đăng nhập bằng email, Đăng ký) | P1, P2 |
+| `1b` | Đăng nhập bằng email | "Đăng nhập bằng email thế nào?" | Email, Mật khẩu (nút Hiện), Quên mật khẩu? | Đăng nhập | P2 |
+| `1d` | Đăng nhập email — lỗi | "Sai ở đâu?" | Như `1b`, dòng lỗi "Sai email hoặc mật khẩu." | Đăng nhập lại hoặc Quên mật khẩu? | P2 |
+| `1c` | Đăng ký | "Tạo tài khoản cần gì?" | Tên hiển thị, Email, Mật khẩu (gợi ý "Ít nhất 8 ký tự.") | Tạo tài khoản | P1 |
+| `1e` | Quên mật khẩu | "Lấy lại mật khẩu thế nào?" | Ô email | Gửi link | P2 |
+| `1f` | Kiểm tra email | "Đã gửi chưa, làm gì tiếp?" | Hướng dẫn mở email, "Chưa nhận được? Gửi lại" | Mở ứng dụng email | P2 |
+| `1g` | Đặt mật khẩu mới | "Đặt mật khẩu mới ra sao?" | Mật khẩu mới, Nhập lại mật khẩu | Lưu mật khẩu | P2 |
+| `1h` | Đổi mật khẩu thành công | "Xong chưa?" | "Đã đổi mật khẩu" | Vào Nốt | P2 |
 
-### 2.3 Lịch bận cố định & Ca làm việc
-| Hoạt động | Loại lịch | Thời gian | Người dùng |
+### 02 · Làm quen
+
+| Mã | Màn | Câu hỏi | Nội dung | Hành động chính | Flow |
+|---|---|---|---|---|---|
+| `O1` | Làm quen | "App sẽ hỏi gì?" | "Làm quen với Nốt nhé! 3 câu hỏi ngắn" | Bắt đầu (phụ: Để sau) | P1 |
+| `O2` | Bạn đang là? (1/3) | "Mình thuộc nhóm nào?" | Sinh viên năm nhất, năm 2–3, năm cuối, Đang thực tập, Đã đi làm (chọn một) | Tiếp tục | P1 |
+| `O3` | Tuần có gì cố định? (2/3) | "Lịch cố định của mình?" | Chọn nhiều: Lịch học, Đồ án, Họp nhóm, Freelance, Ca làm thêm, Giờ thực tập, Đi làm, Tập thể thao, Học thêm, + Thêm khác | Tiếp tục (phụ: Bỏ qua bước này) | P1 |
+| `O4` | Muốn tốt hơn ở điều gì? (3/3) | "Mình muốn app giúp gì?" | Chọn nhiều: Không dồn deadline, Thấy rõ tiến bộ, Được nhắc trước hạn, Chia nhỏ bài lớn, Nộp đúng hạn, Gom tài liệu một chỗ, Mục tiêu riêng, + Thêm khác | Xong (phụ: Bỏ qua bước này) | P1 |
+
+### 03 · Hôm nay
+
+| Mã | Màn | Câu hỏi | Nội dung | Hành động chính | Flow |
+|---|---|---|---|---|---|
+| `2` | Hôm nay | "Hôm nay làm gì trước?" | Ngày ("Thứ Tư, 7/10"), chuông thông báo; thẻ **Hạn hôm nay** (Lab 2: Thiết kế UI · Còn 1 việc · Hoàn thiện và nộp); thẻ chuỗi "3 ngày liên tiếp đúng hạn"; dải 7 ngày tới theo độ nặng; mục **Cần để ý** (Tiểu luận chương 3 hay bị dời, Thứ Sáu đang quá nặng) | Xem việc cần làm | C2, C3, C4, P5, P7 |
+| `2c0` | Chia nhỏ — 1/3 Vì sao bị dời | "Vì sao việc này cứ bị dời?" | Tiểu luận chương 3 · Hạn T6 9/10 · Đã dời 3 lần; lý do: Việc quá to, Không có giờ trống, Chưa rõ đề bài | Tiếp | P7, P4 |
+| `2c` | Chia nhỏ — 2/3 Chia bước | "Chia thành những bước nào?" | "Nốt gợi ý 3 bước, mỗi bước khoảng 45 phút. Bạn sửa hoặc thêm được." Đọc lại chương 3, Viết bản nháp, Soát lỗi và nộp, + Thêm bước | Tiếp: chọn giờ | P7 |
+| `2c2` | Chia nhỏ — thêm bước | (biến thể của `2c`) | Ô "Nhập tên bước…" | Tiếp: chọn giờ | P7 |
+| `2c3` | Chia nhỏ — 3/3 Xếp giờ | "Làm mỗi bước lúc nào?" | Mỗi bước một giờ: T4 20:00, T5 19:30, T6 10:00 (người dùng chọn) | Xếp vào lịch | P7 |
+| `3c` | Kế hoạch — đã xếp 3 buổi | (biến thể của `3`) | Lịch tháng có 3 buổi mới | — | P7 |
+| `2f` | Bảng thành tích tuần này | "Tuần này mình làm được gì?" | Số ngày liên tiếp đúng hạn, "3/3 deadline nộp đúng hạn", số giai đoạn đã xong; danh sách theo ngày (Nộp Báo cáo tuần 4 · sớm 1 ngày, Giai đoạn 2/3 Thiết kế UI…); "Tự ghi lại khi bạn nộp deadline hoặc tick xong một giai đoạn" | Chạm một việc đã làm | P5 |
+
+### 04 · Kế hoạch
+
+| Mã | Màn | Câu hỏi | Nội dung | Hành động chính | Flow |
+|---|---|---|---|---|---|
+| `3` | Kế hoạch — Tháng | "Ngày nào quá nặng?" | Nút Tháng / Tuần; "Tháng 10, 2026"; lưới 7 cột, mỗi ô có ngày, màu nhiệt, số độ nặng và khuôn mặt mascot | Chạm một ngày | C4, P8 |
+| `4` | Chi tiết ngày | "Ngày này có gì, dời bớt được không?" | "Thứ Sáu, 9/10 · Rất nặng · 5 việc · 3 việc đến hạn ngày này"; gợi ý "Dời 2 việc để thứ Sáu nhẹ hơn · Sang T5 và T7 · Rất nặng → Nặng"; danh sách việc, việc dời được ghi "dời được" | Xem trước (giãn việc) | C4 |
+| `4b` | Xem trước dời việc | "Dời việc nào, sang ngày nào?" | Thay đổi độ nặng từng ngày (T6 Rất nặng → Nặng, T5 Nhẹ → Vừa); việc chọn để dời và ngày đề xuất; 3 việc đến hạn ngay thứ Sáu (không dời được); "Đề xuất là ngày gần nhất còn nhẹ trước hạn nộp" | Dời 2 việc | C4, C3 |
+| `4c` | Chọn ngày dời (sheet) | "Muốn ngày khác thì sao?" | Lịch chọn ngày; màu là độ nặng nếu thêm việc vào ngày đó; hạn nộp của việc | Chọn ngày | C4 |
+| `3d` | Kế hoạch — đã dời | (biến thể của `3`) | Lịch đã đổi màu, snackbar có Hoàn tác | — | C4 |
+| `4d` | Chi tiết ngày — không dời được | "Không dời được thì làm gì?" | "Chưa có ngày đủ nhẹ để dời. Các ngày trước hạn nộp đều đã từ mức Vừa trở lên." | Chia nhỏ một việc | C4, P4 |
+| `9` | Kế hoạch — Tuần | "Tuần này bận lúc nào?" | Lưới giờ T2–CN: giờ bận (Freelance: landing page, Họp nhóm đồ án), giai đoạn (Paper · Chạy thực nghiệm), việc đã xong | Nút + (thêm giờ bận) | P8 |
+| `9d` | Thêm giờ bận (sheet) | "Thêm giờ bận thế nào?" | Tên ("Làm thêm ở quán cà phê"), Từ 18:00, Đến 22:00, Mỗi tuần | Lưu giờ bận | P8 |
+| `9e` | Nhấn giữ để hoãn | "Hoãn việc này thế nào?" | Việc "Đã dời 3 lần"; Để mai, Chia nhỏ việc này | Để mai | P8, P7 |
+
+### 05 · Thông báo
+
+| Mã | Màn | Câu hỏi | Nội dung | Hành động chính | Flow |
+|---|---|---|---|---|---|
+| `13` | Thông báo | "Có gì mới cần làm?" | Tất cả / Chưa đọc · 3; Đọc hết; mỗi dòng một loại (Tới giờ làm: Chạy thực nghiệm; Quiz ITE302c hết hạn 23:59; Thứ Sáu đang quá nặng; 3 ngày liên tiếp đúng hạn; Tiểu luận chương 3 quá hạn; Đã nộp Lab 2 đúng hạn) | Chạm một thông báo | C3 |
+| `13A`, `13B` | Hai phương án của `13` | — | Nền nhạt cho tin chưa đọc / kiểu hộp thư. Nhóm chọn một phương án khi dựng | — | C3 |
+| `13p` | Thông báo đẩy (màn khoá) | "Bây giờ cần làm gì?" | "NỐT · Nhắc giai đoạn · bây giờ"; "Tới giờ làm: Chạy thực nghiệm"; "Paper · ngày 3/7 · 20:00 mỗi ngày" | Mở giai đoạn (phụ: Nhắc lại 15 phút) | C1, C3 |
+
+### 06 · Deadline
+
+| Mã | Màn | Câu hỏi | Nội dung | Hành động chính | Flow |
+|---|---|---|---|---|---|
+| `5` | Deadline — Sắp đến hạn | "Việc nào gấp nhất?" | Nút Sắp đến hạn / Môn học; "1 quá hạn"; nhóm Quá hạn, Hôm nay, Tuần này (mỗi nhóm có MascotMini); mỗi dòng: tên, mã môn · x/y giai đoạn, nhãn hạn ("Trễ 1 ngày", "Còn 6 giờ") | Nút + thêm deadline | C2, P3, S1, S2 |
+| Rỗng | Trạng thái rỗng của `5` | "Chưa có gì thì làm gì?" | "Chưa có deadline nào. Nốt sẽ nhắc bạn trước hạn." | Thêm deadline | S1 |
+| Đang tải | Trạng thái đang tải của `5` | — | "Đang đồng bộ deadline…" | — | S2 |
+| Lỗi mất mạng | Trạng thái lỗi của `5` | "Sao không thấy gì?" | "Mất kết nối. Kiểm tra kết nối rồi thử lại." | Thử lại | S2 |
+| `10b` | Deadline — Môn · Dự án | "Môn nào còn bao nhiêu việc?" | PRM393 (1/4), WDP301 (1/2), MLN111, PAPER (1 deadline · 4 giai đoạn), ITE302c (0/2) | Chạm một môn | P6 |
+| `10c` | Chi tiết môn học | "Môn này còn gì?" | PRM393 · Lập trình di động · 3 còn lại · 1 đã nộp; Lab 2 (Còn 6 giờ), Lab 3 (Còn 9 ngày), Quiz giữa kỳ (Còn 2 tuần) | Chạm một deadline | P6 |
+| `6b` | Thêm môn học | "Thêm môn thế nào?" | Tên môn, Mã môn, Màu nhận diện | Lưu môn học | C1, P6 |
+| `6` | Thêm deadline — B1/5 | "Deadline này thuộc môn hay dự án?" | Môn học / Dự án; danh sách (PAPER Paper hội nghị, ĐATN Đồ án tốt nghiệp, WORK Làm thêm, KHÁC Việc phát sinh, ITE302c…); Thêm dự án mới | Tiếp · nhập deadline | C1, S1 |
+| `6b2` | Thêm deadline — B2/5 | "Deadline tên gì, hạn khi nào?" | Tên deadline; Loại (Báo cáo, Bài báo, Đồ án, Thuyết trình, Công việc, Khác) kèm độ nặng; Hạn chót ("CN, 15/11 · còn 31 ngày để chia giai đoạn"); Nhắc trước | Tiếp | C1 |
+| `6b2a` | Thêm deadline — B3/5 Mô tả | "Việc này cần làm gì?" | Mô tả (không bắt buộc, tối đa 500 ký tự): việc cần làm và ai làm phần nào. "AI dùng mô tả này để gợi ý giai đoạn" | Tiếp · chia giai đoạn | C1 |
+| `6b3` | Thêm deadline — B4/5 Giai đoạn | "Chia 31 ngày thế nào?" | Thanh từ hôm nay tới hạn chót; danh sách giai đoạn (tên, từ → đến, số ngày). 4 trạng thái: **Chưa có giai đoạn** (AI gợi ý giai đoạn / Thêm giai đoạn), **AI đang chia** ("AI đang chia 31 ngày theo mô tả…"), **Đề xuất của AI** (Chạm để sửa, Tạo lại), **AI lỗi** ("Mất kết nối khi gọi AI. Mô tả của bạn vẫn được giữ." Thử lại / Tự nhập tay) | Dùng 4 giai đoạn · xem lại | C1 |
+| `6b4` | Thêm giai đoạn (sheet) | "Giai đoạn này từ ngày nào, nhắc lúc mấy giờ?" | Tên, từ ngày, đến ngày, giờ nhắc mỗi ngày; "Đã chia 31/31 ngày" | Lưu giai đoạn | C1 |
+| `6b5` | Thêm deadline — B5/5 Xem lại | "Đúng chưa trước khi lưu?" | Tóm tắt deadline; 4 giai đoạn; **Lịch thông báo** (4 mốc nhắc) | Lưu và bật nhắc | C1 |
+| `7c` | Deadline vừa tạo | (biến thể của `7`) | "Còn 31 ngày · Hạn CN 15/11 · Nhắc 3 ngày, 1 ngày trước"; 0/4 xong; Thêm link nộp (không bắt buộc); snackbar "Đã thêm Nộp paper hội nghị" | Chạm giai đoạn | C1 |
+| `7` | Chi tiết deadline | "Việc này đang tới đâu?" | Lab 2 · PRM393 · Còn 6 giờ · 23:59 hôm nay; Giai đoạn 2/3 xong (tên, ngày, giờ làm); link nộp; Ghi chú; "Tick đủ 3 giai đoạn để hoàn thành" | Hoàn thành deadline (tắt tới khi đủ giai đoạn) | C2, C3 |
+| `7d` | Chi tiết — đủ 3/3 | (biến thể của `7`) | "Đã xong cả 3 giai đoạn" | Hoàn thành deadline (bật) | C2 |
+| Overlay | Hoàn thành deadline | "Chắc chắn hoàn thành?" | "Hoàn thành Lab 2? Bạn đã xong cả 3 giai đoạn…" | Hoàn thành (phụ: Huỷ) | C2 |
+| `8` | Đã nộp | "Xong chưa, tiếp theo là gì?" | Mascot Nốt Xong; "Lab 2: Thiết kế UI · Sớm hơn hạn 6 giờ · Chuỗi 3 ngày đúng hạn" | Xem việc tiếp theo (phụ: Về Deadline) | C2 |
+| `7s` | Chi tiết giai đoạn | "Hôm nay làm gì cho giai đoạn này?" | "Paper · Giai đoạn 1/4 · Ngày 3/7 · Chạy thực nghiệm · T6 16/10 → T5 22/10 · Nhắc 20:00 mỗi ngày"; Tài liệu (DOCX, PDF, XLSX); Ghi chép ("Tuấn lo phần chạy. Xong 2/5 cấu hình, F1 tăng 3%.") | Tải lên hoặc Thêm ghi chép | C1, C2, C3 |
+| `7s1`, `7s2` | Giai đoạn đã xong | (biến thể của `7s`) | "Đã xong · Hoàn thành T2 5/10 · đúng ngày dự kiến"; ghi chép kèm link và ảnh | Thêm ghi chép | C2, P5 |
+| `7t` | Thêm ghi chép và tài liệu (sheet) | "Ghi lại gì, đính kèm gì?" | Ghi chép; "Tài liệu đã làm · 5"; Tải lên tệp (DOCX, PDF, XLSX, ZIP…), ảnh, link | Lưu ghi chép | C1, C2 |
+| `7b` | Sửa deadline | "Sửa gì?" | Môn (Đổi môn), Tên, Loại, Hạn chót, Nhắc trước (1 ngày, 3 giờ, 1 giờ, Không nhắc) | Lưu (phụ: Xoá deadline) | C2 |
+| Overlay | Xoá deadline | "Chắc chắn xoá?" | "Xoá cả 3 giai đoạn, ghi chép và lời nhắc. Không hoàn tác được." | Xoá (phụ: Huỷ) | C2 |
+| `5e` | Đã xoá deadline | (biến thể của `5`) | Snackbar "Đã xoá deadline" | — | C2 |
+| `7o` | Quá hạn | "Trễ rồi, giờ làm gì?" | Quiz ITE302c tuần 1 · Trễ 1 ngày · Chưa nộp; "Vì sao bị tính quá hạn"; giai đoạn 0/1; 3 lựa chọn: Đã nộp muộn, Dời hạn, Bỏ deadline | Chọn một cách xử lý | P3, C3 |
+| `7o2` | Dời hạn | (biến thể của `7o`) | Chọn hạn mới, giữ các giai đoạn | Lưu hạn mới | P3 |
+| Overlay | Bỏ deadline | "Chắc chắn bỏ?" | "Deadline sẽ ẩn khỏi danh sách và không còn nhắc." | Bỏ deadline (phụ: Huỷ) | P3 |
+| `5o1`, `5o2`, `5o3` | Sau khi xử lý quá hạn | (biến thể của `5`) | Snackbar "Đã nộp muộn" / "Đã dời hạn" / "Đã bỏ deadline" | — | P3 |
+
+### 07 · Hồ sơ, Cài đặt
+
+| Mã | Màn | Câu hỏi | Nội dung | Hành động chính | Flow |
+|---|---|---|---|---|---|
+| `10` | Hồ sơ | "Mình đang làm tốt không?" | Tên, email; Chuỗi, Đã nộp 3/3, Đúng hạn; tuần này T2–CN; Bảng thành tích nhỏ | Cài đặt | P5, P6 |
+| `10f` | Đã nộp tuần này | "Tuần này đã nộp gì?" | Theo môn: Lập trình di động 3 bài · đúng hạn; danh sách bài đã nộp theo ngày | — | P6 |
+| `10e` | Cài đặt | "Chỉnh app thế nào?" | Thông báo nhắc hạn, Nhắc trước hạn (1 ngày), Môn học của tôi (5 môn), Mục tiêu riêng, Xuất báo cáo tuần (PDF), Hướng dẫn sử dụng, Công cụ demo | Đăng xuất (cuối màn) | P6, S3 |
+| `11` | Hướng dẫn sử dụng | "Dùng app thế nào?" | 4 mẹo: Thêm môn học, Thêm deadline, Xem ngày nào nặng, Đánh dấu đã nộp; Xem ý nghĩa các icon | Bắt đầu dùng | P6 |
+| `12` | Ý nghĩa icon | "Màu và mặt này nghĩa là gì?" | Trạng thái deadline; màu ngày (Rất nhẹ 1 → Rất nặng 8+); độ nặng từng loại việc | — | P6 |
+| `14` | Cấu hình ứng dụng | "App đang dùng giá trị nào?" | Giá trị Remote Config: `today_max_tasks` (mặc định 5), `show_study_tip`, `reminder_hours_before` (mặc định 12); thời điểm tải | Tải lại cấu hình | S3 |
+| `15` | Kiểm tra lỗi | "Báo cáo lỗi có chạy không?" | Crashlytics đang bật; lần gửi gần nhất | Gây lỗi thử (phụ: Ghi lỗi, không đóng app) | S3 |
+| `15b` | Dialog đóng app | "Chắc chắn đóng app?" | "Đóng app để thử lỗi? App đóng ngay. Mở lại để gửi báo cáo." | Đóng app (phụ: Để sau) | S3 |
+
+---
+
+## 2. Dữ liệu mẫu dùng trên các màn
+
+Lấy đúng từ Figma để màn này khớp màn kia.
+
+### 2.1 Deadline dài nhiều giai đoạn (Minh)
+
+**Nộp paper hội nghị** · dự án PAPER · loại Bài báo · hạn CN 15/11, 23:59 · tạo ngày T6 16/10 · 31 ngày · nhắc 3 ngày và 1 ngày trước hạn.
+
+| Giai đoạn | Từ → đến | Số ngày | Nhắc mỗi ngày |
 |---|---|---|---|
-| Học trên trường (PRM393, WDP301) | Lịch học | Thứ Ba & Thứ Sáu, 09:30–17:15 | Minh, Đăng Khoa |
-| Ca làm thêm quán cà phê | Ca làm việc | Thứ Hai, Tư, Sáu, Bảy, 18:00–22:00 | Đăng Khoa |
-| Giờ họp Sprint / Daily meeting (DND) | Công việc | Thứ Hai đến Thứ Sáu, 14:00–15:30 | Quốc Huy |
-| Ca trực đồ án xưởng in | Thực hành | Thứ Bảy, 08:30–11:30 | Bảo Ngọc |
+| Chạy thực nghiệm | T6 16/10 → T5 22/10 | 7 | 20:00 |
+| Viết báo | T6 23/10 → CN 01/11 | 10 | theo `6b4` |
+| Check đạo văn | T2 02/11 → T5 05/11 | 4 | 09:00 |
+| Chỉnh sửa và nộp | T6 06/11 → CN 15/11 | 10 | theo `6b4` |
+
+Tài liệu ở giai đoạn 1: `Thiet-ke-thuc-nghiem.docx` (248 KB), `Baseline-paper.pdf` (1,2 MB), `Ket-qua-thuc-nghiem.xlsx` (1,2 MB), `bieu-do-F1.png` (860 KB). Ghi chép: "Tuấn lo phần chạy. Xong 2/5 cấu hình, F1 tăng 3%."
+
+### 2.2 Deadline của tuần (màn Hôm nay, Deadline, Kế hoạch)
+
+| Deadline | Môn | Hạn | Giai đoạn | Ghi chú |
+|---|---|---|---|---|
+| Lab 2: Thiết kế UI | PRM393 | Hôm nay T4 7/10, 23:59 | 2/3 (Wireframe, Thiết kế UI, Hoàn thiện và nộp) | Link nộp `lms.fpt.edu.vn/prm393/lab2` |
+| Quiz ITE302c tuần 1 | ITE302c | T3 6/10, 23:59 (trễ 1 ngày) | 0/1 | Dùng cho P3 |
+| Báo cáo sprint 2 | WDP301 | T6 9/10 | 1/3 | |
+| Tiểu luận chương 3 | MLN111 | T6 9/10 | 0/3 | Đã dời 3 lần, dùng cho P7 |
+| Quiz ITE302c tuần 2 | ITE302c | T6 9/10 | 1/2 | |
+| Slide thuyết trình nhóm | WDP301 | T3 13/10 | — | Dời được |
+| Đề cương đồ án | Đồ án | CN 19/10 | — | Dời được |
+
+### 2.3 Môn và dự án
+
+PRM393 Lập trình di động · WDP301 Phát triển web · MLN111 Triết học Mác–Lênin · ITE302c Đạo đức nghề nghiệp · PAPER Nghiên cứu · viết Paper · ĐATN Đồ án tốt nghiệp · WORK Làm thêm · KHÁC Việc phát sinh.
+
+### 2.4 Giờ bận
+
+Freelance: landing page · Họp nhóm đồ án · Làm thêm ở quán cà phê 18:00–22:00, lặp mỗi tuần.
+
+> **Lưu ý:** dữ liệu mẫu có hai "hôm nay": nhóm màn Lab 2 lấy ngày T4 7/10, nhóm màn Paper lấy ngày T6 16/10 (và `13p` là CN 18/10). Khi dựng app ở Lab 3, seed data nên dùng ngày tương đối so với ngày chạy.

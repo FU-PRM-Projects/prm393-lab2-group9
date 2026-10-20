@@ -1,167 +1,236 @@
 # DESIGN.md — Nốt (Study Planner)
 
-Bản mô tả hệ thống thiết kế (Design System Specification) dùng làm tiêu chuẩn cho Figma (page `04 Design System`, `05 Components`) và triển khai code Flutter (Material 3). Mọi giá trị dưới đây đồng bộ tuyệt đối với Figma Variables và Text Styles trong file `PRM393-LAB2-Study-Planner`.
+Bản mô tả thiết kế hiện tại của app Nốt: màu, chữ, khoảng cách, bo góc, elevation, tone và quy tắc component. Nguồn là **Figma Variables, Text Styles và Effect Styles** trong file `PRM393-LAB2-Study-Planner` (page `04 Design System` và `05 Components`), đọc lại ngày 20/10/2026.
+
+> **Bản đưa cho Stitch:** bản brief gốc đã tải lên Google Stitch ngày 06/10/2026 (khi app còn tên "Khe") được giữ nguyên văn ở [`ai/stitch-source/DESIGN-v0-Khe.md`](../ai/stitch-source/DESIGN-v0-Khe.md). File này là bản đã cập nhật theo các vòng lặp và theo Figma hiện tại.
 
 ---
 
 ## 1. Tóm tắt sản phẩm
 
-| Mục | Chi tiết đặc tả |
+| Mục | Nội dung |
 |---|---|
-| **Tên ứng dụng** | **Nốt (Study Planner)**. Mascot đại diện: "Tụi Nốt" (những tờ giấy ghi chú có linh hồn và biểu cảm) |
-| **Đối tượng người dùng** | Phục vụ 4 nhóm sinh viên & người đi làm trẻ:<br>• **Minh (Chính):** Trưởng nhóm Nghiên cứu Khoa học (NCKH), quản lý đồ án dài hơi nhiều giai đoạn.<br>• **Đăng Khoa (Phụ):** Sinh viên IT làm thêm ca tối quán cà phê (18:00–22:00), cần đổi ca và dời lịch nhanh.<br>• **Bảo Ngọc (Phụ):** Sinh viên năm nhất Thiết kế Đồ họa, cần chia nhỏ bài tập lớn thành các slot 45 phút.<br>• **Quốc Huy (Hỗ trợ):** Lập trình viên đi làm toàn thời gian, dùng font scale 130%, cần im lặng trong giờ họp (DND). |
-| **Vấn đề cốt lõi giải quyết** | Xung đột lịch học – lịch làm, quá tải bài tập và phân mảnh công cụ quản lý (phải nhảy qua lại giữa Zalo, Notion, Google Calendar, ClickUp). |
-| **Năng lực vượt trội** | • Tự động xếp lịch và chia nhỏ việc thành các slot 45 phút.<br>• Phân rã deadline lớn thành nhiều giai đoạn (phases) và lưu trữ tệp đính kèm trực tiếp (DOCX, PDF, XLSX, ZIP).<br>• Dời việc tự động chỉ trong 3 chạm khi phát sinh ca làm đột xuất.<br>• Trực quan hóa tải công việc bằng lịch nhiệt 5 mức độ (heat map). |
-| **Nền tảng & Thiết bị** | Android Phone, chuẩn $360 \times 800\text{ dp}$, tương thích mở rộng $412 \times 915\text{ dp}$, hỗ trợ Text Scaling $1.3\times$, Material Design 3, Light Theme. |
-| **Ngôn ngữ & Định dạng** | Tiếng Việt, hiển thị thời gian chuẩn 24 giờ. |
+| Tên app | **Nốt**. Mascot là "Tụi Nốt": các tờ giấy ghi chú có khuôn mặt |
+| Người dùng | Persona chính **Minh**: sinh viên năm cuối, trưởng nhóm nghiên cứu khoa học 4 người, đi làm thêm, đang dùng cùng lúc Calendar, Notion, ClickUp, Linear. Persona phụ: Đăng Khoa (năm 2, làm ca tối), Bảo Ngọc (năm 1, lần đầu dùng app). Persona hỗ trợ: Quốc Huy (lập trình viên đi làm) |
+| Vấn đề | Deadline và tài liệu nằm rải rác nhiều app; deadline dài dễ lỡ mốc giữa chừng; không thấy ngày nào quá nặng |
+| Việc app làm | Gom deadline theo môn hoặc dự án. Chia một deadline thành giai đoạn phủ kín số ngày tới hạn (AI gợi ý từ mô tả, hoặc tự nhập). Nhắc mỗi ngày theo giai đoạn; thông báo mở thẳng giai đoạn. Ghi chép và tệp theo giai đoạn. Lịch nhiệt theo độ nặng, gợi ý dời việc sang ngày nhẹ hơn trước hạn |
+| Nền tảng | Android, điện thoại, khung thiết kế 360 × 800 dp, kiểm tra thêm ở 412 dp. Material 3, light theme |
+| Ngôn ngữ | Tiếng Việt, giờ 24 giờ, ngày dạng "T6 16/10" |
 
 ---
 
 ## 2. Nguyên tắc thiết kế
 
-1. **Liếc là hiểu (Glanceable UI):** Mỗi màn hình giải quyết dứt điểm một câu hỏi cốt lõi. Hôm nay: "Bây giờ làm gì?"; Kế hoạch: "Ngày nào quá tải?"; Deadline: "Việc nào gấp nhất?"; Chi tiết: "Giai đoạn này ai làm, file ở đâu?".
-2. **Thao tác một tay, tối ưu ngón cái (Thumb-zone Driven):** Các nút bấm chính (Primary Action, FAB, Bottom Sheet trigger) tập trung ở nửa dưới màn hình.
-3. **Phân rã việc lớn để bớt ngợp (Chunking by Default):** Mọi đồ án hoặc bài tập dài kỳ đều được gợi ý chia thành các phase hoặc slot 45 phút.
-4. **Nhập liệu cấp tốc (Frictionless Input):** Chỉ bắt buộc 3 trường tối thiểu (Tên, Nhóm, Hạn nộp). Các thông tin khác có thể suy diễn tự động hoặc điền sau.
-5. **Độ tương phản cao & Tín hiệu kép:** Màu nhiệt (lạnh đến nóng) trực quan nhưng không phải tín hiệu duy nhất; luôn đi kèm con số, nhãn chữ và biểu cảm mascot để đảm bảo chuẩn tiếp cận WCAG 2.1 AA.
-6. **Co giãn an toàn (Responsive & Text Scalable):** Toàn bộ component phải co giãn linh hoạt khi hệ thống bật cỡ chữ lớn (Text Scale 130%) mà không bị vỡ bố cục hay che khuất nội dung.
+1. **Mỗi màn một câu hỏi, một hành động chính.** Hôm nay: "Hôm nay làm gì trước?" Kế hoạch: "Ngày nào quá nặng?" Deadline: "Việc nào gấp nhất?" Chi tiết giai đoạn: "Hôm nay làm gì cho giai đoạn này, tài liệu ở đâu?"
+2. **Nút chính ở nửa dưới màn hình.** Nút chính cố định cuối màn, nút + và thanh điều hướng nằm trong vùng ngón cái.
+3. **Chia việc lớn thành giai đoạn.** Một deadline dài được chia thành giai đoạn có từ ngày, đến ngày và giờ nhắc. App cho biết đã chia bao nhiêu ngày ("Đã chia 31/31 ngày").
+4. **AI gợi ý, người dùng quyết định.** AI chỉ đề xuất giai đoạn từ mô tả; người dùng sửa, xoá, tạo lại, hoặc tự nhập. Khi AI lỗi, dữ liệu đã nhập vẫn được giữ.
+5. **Không dùng màu làm tín hiệu duy nhất.** Màu đi kèm chữ, số hoặc icon (WCAG 1.4.1).
+6. **Hoàn tác được.** Dời việc có Hoàn tác. Thao tác không hoàn tác được (Xoá, Bỏ deadline) phải qua dialog xác nhận.
 
 ---
 
-## 3. Màu sắc (Color Tokens)
+## 3. Màu
 
-Hệ thống token màu chuẩn Material 3 ánh xạ trực tiếp sang `ColorScheme` trong Flutter:
+Mọi màu là Figma Variable trong collection **Color** (mode Light). Component dùng biến, không dùng mã màu gán cứng.
 
-### 3.1 Bảng màu chức năng (Functional Colors)
+### 3.1 Màu vai trò
 
-| Token | Mã Hex | Ý nghĩa và Vị trí sử dụng |
+| Variable | Giá trị (Variable) | Dùng cho |
 |---|---|---|
-| `primary` | `#3D4FD6` | Màu thương hiệu chính: FAB, nút filled, tab đang chọn, banner tóm tắt |
-| `on-primary` | `#FFFFFF` | Chữ và icon nổi trên nền primary |
-| `primary-container` | `#DDE1FF` | Nền chip đang chọn, khối buổi làm trong lưới giờ, stepper đang chạy |
-| `on-primary-container` | `#2F3FB8` | Chữ và icon đậm trên nền primary-container |
-| `surface` | `#F6F7FB` | Nền màn hình tổng thể (Scaffold background) |
-| `surface-card` | `#FFFFFF` | Nền thẻ (Card), thanh điều hướng dưới, ô nhập liệu, hộp thoại dialog |
-| `surface-variant` | `#E7E9F3` | Nền thanh phân đoạn (segmented), khối lịch bận, ô ngày trống trên lịch |
-| `on-surface` | `#1B1D2A` | Chữ tiêu đề và nội dung chính |
-| `on-surface-variant` | `#555B6E` | Chữ mô tả phụ, icon trạng thái chưa chọn, nhãn thời gian |
-| `outline` | `#7A8094` | Viền checkbox, đường phân cách, viền trường nhập liệu |
-| `error` | `#B3261E` | Trạng thái quá hạn, cảnh báo lỗi, nút xóa dữ liệu |
-| `on-error` | `#FFFFFF` | Chữ trên nền nút error |
-| `error-container` | `#FDE1DF` | Nền thẻ cảnh báo lỗi, banner thông báo quá hạn nghiêm trọng |
-| `warning` | `#A84F00` | Cảnh báo hạn gấp trong ngày, cảnh báo dời việc sau hạn chót |
-| `warning-container` | `#FFE9D1` | Nền thông báo vi phạm hạn nộp |
-| `success` | `#1B6B44` | Đánh dấu hoàn thành giai đoạn, nộp bài thành công, trạng thái đúng hạn |
-| `success-container` | `#D8F3E6` | Nền huy hiệu thành tích, thẻ việc đã hoàn thành |
+| `primary` | `#3D4FD6` | Hành động chính, tab đang chọn, nút + |
+| `on-primary` | `#FFFFFF` | Chữ và icon trên `primary` |
+| `primary-container` | `#DCE6FF` | Nền tonal của tab đang chọn, avatar |
+| `on-primary-container` | `#2F3FB8` | Chữ trên `primary-container`, nút viền |
+| `primary-dark` | `#2B399F` | Huy hiệu trên nền `primary` |
+| `surface` | `#FFFFFF` | Nền |
+| `surface-card` | `#F6F7FB` | Nền thẻ |
+| `surface-variant` | `#E7E9F3` | Segmented, skeleton, ngày trống |
+| `surface-container` | `#E7E9F3` | Nền khối phụ |
+| `outline` | `#7A8094` | Viền ô nhập, checkbox |
+| `outline-variant` | `#E3E5EE` | Đường kẻ mảnh |
+| `switch-off` | `#C3C7D4` | Công tắc đang tắt |
+| `on-surface` | `#1B1D2A` | Chữ chính |
+| `on-surface-variant` | `#555B6E` | Chữ phụ |
+| `on-surface-muted` | `#3A3F52` | Chữ phụ trên nền màu |
+| `error` | `#B3261E` | Quá hạn, lỗi |
+| `warning` | `#A84F00` | Đến hạn hôm nay |
+| `success` | `#1F9D63` | Việc đã xong (chỉ dùng cho icon, chữ lớn hoặc chữ trên nền nhạt có kiểm tra contrast) |
 
-### 3.2 Bảng màu lịch nhiệt (Heat Map Scale)
+> **Cần thống nhất trong Figma:** nhãn chữ trên các ô màu ở page 04 chưa khớp với Variables ở 5 chỗ: `primary-container` (nhãn ghi `#DDE1FF`), `surface` và `surface-card` (nhãn ghi ngược: `#F6F7FB` và `#FFFFFF`), `success` (Variable `#1F9D63`; bản cũ `#1B6B44`), `tint/yellow` (nhãn ghi `#FFF4CC`, Variable `#EEF2FE`). Bảng trên lấy theo Variables vì component dùng Variables. Nhóm cần chọn một giá trị và sửa bên còn lại.
 
-Thang đo 5 cấp độ tải công việc dựa trên tỷ lệ thời gian bị chiếm dụng trong 14 giờ thức của sinh viên:
+### 3.2 Màu nhiệt (độ nặng của ngày)
 
-| Token | Mã Hex | Mức độ | Nhãn hiển thị | Mascot tương ứng | Ngưỡng tính toán thời gian |
-|---|---|---|---|---|---|
-| `heat-0` | `#E7E9F3` | Mức 0 | Trống | Không có | 0 giờ bận trong ngày |
-| `heat-1` | `#A9DCF5` | Mức 1 | Nhẹ | Nốt Thong Thả | Chiếm dưới 25% thời gian thức (< 3.5 giờ) |
-| `heat-2` | `#7FD9B3` | Mức 2 | Vừa | Nốt Thong Thả | Chiếm 25% – 50% thời gian thức (3.5 – 7.0 giờ) |
-| `heat-3` | `#FFD24A` | Mức 3 | Khá nặng | Nốt Đợi | Chiếm 50% – 70% thời gian thức (7.0 – 9.8 giờ) |
-| `heat-4` | `#FF9A3D` | Mức 4 | Nặng | Nốt Vội | Chiếm 70% – 90% thời gian thức (9.8 – 12.6 giờ) |
-| `heat-5` | `#F0524B` | Mức 5 | Quá tải | Nốt Cháy | Chiếm > 90% thời gian thức hoặc có > 2 deadline gấp |
-
-### 3.3 Tỉ lệ tương phản kiểm định (WCAG 2.1 AA)
-
-| Cặp màu kiểm tra | Tỉ lệ tương phản | Tiêu chuẩn WCAG | Đánh giá |
+| Variable | Giá trị | Nhãn ở `12 · Ý nghĩa icon` | Tổng độ nặng của ngày |
 |---|---|---|---|
-| `on-surface` trên `surface` | **15.62:1** | $\ge 4.5:1$ (Chữ thường) | Đạt xuất sắc |
-| `on-surface` trên `surface-card` | **16.72:1** | $\ge 4.5:1$ (Chữ thường) | Đạt xuất sắc |
-| `on-surface-variant` trên `surface-card` | **6.76:1** | $\ge 4.5:1$ (Chữ thường) | Đạt |
-| `on-primary` trên `primary` | **6.39:1** | $\ge 4.5:1$ (Chữ nút bấm) | Đạt |
-| `outline` trên `surface-card` | **3.93:1** | $\ge 3.0:1$ (Viền UI control) | Đạt |
-| `error` trên `surface-card` | **6.54:1** | $\ge 4.5:1$ (Chữ lỗi) | Đạt |
-| `warning` trên `warning-container` | **4.71:1** | $\ge 4.5:1$ (Chữ cảnh báo) | Đạt |
-| `on-surface` trên `heat-1` đến `heat-5` | **4.79:1 – 11.60:1** | $\ge 4.5:1$ (Số việc trên ô) | Đạt |
+| (trống) | `surface-variant` `#E7E9F3` | Chưa có việc | 0 |
+| `heat/1` | `#A9DCF5` | Rất nhẹ | 1 |
+| `heat/2` | `#7FD9B3` | Nhẹ | 2–3 |
+| `heat/3` | `#FFD24A` | Vừa | 4–5 |
+| `heat/4` | `#FF9A3D` | Nặng | 6–7 |
+| `heat/5` | `#F0524B` | Rất nặng | 8+ |
 
----
+**Cách tính:** mỗi loại việc có độ nặng (component `WeightDots`: Nhẹ 1, Vừa 2, Nặng 3). Theo màn `12`: Quiz nhẹ; Lab, Tiểu luận, Thuyết trình vừa; Báo cáo, Đồ án nặng. Độ nặng các việc trong một ngày cộng lại thành màu của ngày. Ngày có tổng trên 5 là ngày quá nặng; app gợi ý dời sang ngày nhẹ trước hạn nộp.
 
-## 4. Typography
+> **Cần thống nhất:** ghi chú ở page 04 nói "Lab, Quiz = vừa; Báo cáo, Tiểu luận = nặng", khác màn `12`. Tài liệu này theo màn `12` vì người dùng thấy màn đó.
 
-Họ phông chữ: **Be Vietnam Pro** (Google Fonts).
+Ô ngày luôn có số (tổng độ nặng) và khuôn mặt mascot, nên không dựa vào màu.
 
-| Token | Kích thước (sp) | Chiều cao dòng (Line Height) | Độ đậm (Weight) | Vị trí sử dụng |
-|---|---|---|---|---|
-| `headlineMedium` | 28 sp | 1.25 (35 sp) | Bold (700) | Tiêu đề màn hình cấp cao nhất, màn Thành tích |
-| `titleLarge` | 22 sp | 1.25 (28 sp) | Bold (700) | Tiêu đề App bar màn con, tiêu đề hộp thoại Dialog |
-| `titleMedium` | 18 sp | 1.25 (24 sp) | Semi-bold (600) | Tiêu đề Banner tóm tắt, tên Section nhóm |
-| `titleSmall` | 16 sp | 1.40 (22 sp) | Semi-bold (600) | Tên deadline, tên giai đoạn, tên ca làm việc |
-| `bodyLarge` | 16 sp | 1.40 (22 sp) | Regular (400) | Nội dung văn bản chính, chữ trong ô nhập liệu |
-| `bodyMedium` | 14 sp | 1.40 (20 sp) | Regular (400) | Dòng thông tin phụ: mã môn, hạn nộp, người phụ trách |
-| `labelLarge` | 14 sp | 1.40 (20 sp) | Semi-bold (600) | Chữ trên nút bấm filled/tonal, chip giai đoạn |
-| `labelMedium` | 12 sp | 1.40 (17 sp) | Semi-bold (600) | Nhãn thanh điều hướng, số việc trên ô lịch nhiệt |
+### 3.3 Nền nhạt (tint)
 
-*Quy tắc tiếp cận Text Scale:* Toàn bộ giao diện khi hiển thị ở hệ số `TextScaler.linear(1.3)` (130%) phải tự động tăng chiều cao container (dùng Auto Layout dạng Hug / Wrap). Tuyệt đối không cố định chiều cao thẻ danh sách để tránh mất chữ.
-
----
-
-## 5. Khoảng cách (Spacing) & Hình học (Radii, Elevation)
-
-### 5.1 Khoảng cách (Spacing System - Hệ 4 dp)
-- `space-1` (4 dp): Khoảng cách giữa icon và chữ trong chip nhãn.
-- `space-2` (8 dp): Khoảng cách giữa các phần tử liền kề (avatar, tag).
-- `space-3` (12 dp): Khoảng cách giữa các thẻ danh sách, lề lưới lịch nhiệt.
-- `space-4` (16 dp): Lề trong (padding) tiêu chuẩn của thẻ Card.
-- `space-5` (20 dp): Lề biên ngang màn hình (Screen horizontal padding).
-- `space-6` (24 dp): Khoảng cách giữa các nhóm section lớn.
-- `space-8` (32 dp): Khoảng cách phân cách trạng thái rỗng (empty state) hoặc lỗi.
-
-### 5.2 Bo góc (Corner Radii)
-- `radius-sm` (8 dp): Thẻ chip đính kèm tệp, ô lịch nhiệt, badge trạng thái.
-- `radius-md` (12 dp): Ô nhập text field, nút bấm phụ, thanh segmented control.
-- `radius-lg` (16 dp): Nút bấm chính, nút nổi FAB.
-- `radius-xl` (20 dp): Thẻ công việc (Card), Banner tóm tắt.
-- `radius-2xl` (28 dp): Hộp thoại Dialog, góc trên của Bottom Sheet dời việc.
-
-### 5.3 Độ nổi (Elevation)
-- `level-0` (0 dp): Các thẻ Card phân tách bằng màu nền, không đổ bóng đậm.
-- `level-2` (3 dp): Thanh điều hướng dưới, nút FAB, thông báo snackbar.
-- `level-3` (6 dp): Hộp thoại Dialog xác nhận, Bottom Sheet dời việc.
-
----
-
-## 6. Quy chuẩn thành phần (Component Specifications)
-
-### 6.1 Stepper giai đoạn (Phase Stepper)
-- Dùng trong Chi tiết deadline (Phân hệ 06 - Device 7d, 7s).
-- Gồm 4 trạng thái giai đoạn: Đã hoàn thành (icon tick xanh success), Đang thực hiện (vòng tròn viền primary kèm tiến độ %), Chưa bắt đầu (vòng tròn xám outline), Trễ hạn (icon than đỏ error).
-- Mỗi giai đoạn hiển thị: Tên phase, Hạn chót, Avatar thành viên phụ trách (Lan, Minh...) và danh sách tệp đính kèm tương ứng.
-
-### 6.2 Thẻ tệp đính kèm (Attachment Chip)
-- Hỗ trợ các định dạng: DOCX (màu xanh dương), PDF (màu đỏ mận), XLSX (màu xanh lá), ZIP (màu vàng cam).
-- Kích thước: cao 36 dp, gồm icon định dạng tệp 18 dp, tên tệp (cắt ngắn ở 20 ký tự), dung lượng (ví dụ: `2.4 MB`) và icon tải xuống/xem trước.
-
-### 6.3 Dòng công việc (Task Row)
-- Chiều cao tối thiểu 60 dp (tự mở rộng khi text scale 130%).
-- Cấu trúc: Checkbox hoàn thành (bên trái, vùng chạm 48 dp) → Cột thông tin (Tên deadline, Mã môn, Tiến độ phase) → Cột thời hạn bên phải (Màu error nếu trễ, warning nếu hôm nay, on-surface-variant nếu xa).
-
-### 6.4 Ô lịch nhiệt (Heat Map Cell)
-- Kích thước hiển thị $42 \times 42\text{ dp}$ đặt trong vùng chạm thực tế $48 \times 48\text{ dp}$.
-- Hiển thị ngày trong tháng (phía trên), số lượng đầu việc (ở giữa, phông đậm), khuôn mặt mascot thu nhỏ (phía dưới). Ngày đang chọn có viền kép 2 dp `primary`.
-
-### 6.5 Thẻ thông báo màn khóa (Lock Screen Card)
-- Dùng trong Device 13c (Phân hệ 05).
-- Kích thước chuẩn hóa, nền bo góc 16 dp mờ nhẹ, biểu tượng Nốt, tên deadline, hạn chót và 2 nút hành động nhanh: "Đã hoàn thành" và "Nhắc lại sau 15 phút".
-
----
-
-## 7. Mascot & Biểu cảm (Tụi Nốt)
-
-Tụi Nốt được thiết kế dạng vector SVG độc quyền, xuất hiện tại các vị trí cố định để tăng tính sinh động mà không làm loãng thông tin:
-
-| Tên Mascot | Biểu cảm & Đặc điểm | Vị trí hiển thị quy định |
+| Variable | Giá trị | Dùng cho |
 |---|---|---|
-| **Nốt Tập Trung** | Đeo băng đô quyết tâm | Banner tóm tắt trang Hôm nay và Deadline |
-| **Nốt Cháy** | Bốc hỏa đỏ rực, toát mồ hôi | Tiêu đề nhóm Quá hạn, ô lịch nhiệt mức 5 (Quá tải) |
-| **Nốt Vội** | Chạy gấp, đồng hồ reo | Tiêu đề nhóm Đến hạn hôm nay, ô lịch nhiệt mức 4 |
-| **Nốt Đợi** | Chờ đợi, gõ nhịp ngón tay | Tiêu đề nhóm Tuần này, ô lịch nhiệt mức 3 |
-| **Nốt Thong Thả** | Cười nhẹ, thư thái | Tiêu đề nhóm Tuần sau, ô lịch nhiệt mức 1 và 2 |
-| **Nốt Xong** | Nhảy múa vui mừng, rực rỡ | Màn hình Báo công / Đã nộp thành công, Bảng thành tích |
-| **Nốt Ngủ** | Nhắm mắt ngủ say bên gối | Trạng thái không có việc (Empty state hôm nay) |
-| **Nốt Lạc** | Cầm bản đồ gãi đầu ngơ ngác | Màn hình mất mạng (Offline / Error state) |
+| `tint/blue` | `#E3F3FB` | Thông báo Sắp đến giờ, nền mascot Thong Thả |
+| `tint/orange` | `#FFEBD6` | Loại Báo cáo, thẻ hạn hôm nay, thông báo Hạn hôm nay |
+| `tint/red` | `#FDE1DF` | Loại Thuyết trình, thẻ quá tải, thông báo Quá hạn |
+| `tint/green` | `#DDF5EA` | Loại Lab, thông báo Hoàn thành |
+| `tint/violet` | `#ECEBFC` | Loại Đồ án, thông báo Gợi ý dời |
+| `tint/yellow` | `#EEF2FE` | Loại Quiz |
+| `tint/indigo` | `#E4E7FF` | Loại Tiểu luận, giờ bận |
+| `tint/gray` | `#ECEEF3` | Nền trạng thái lỗi |
+| `tint/lavender` | `#EEF0FE` | Nền trạng thái rỗng |
+| `mono/1` … `mono/5` | `#DFE3FD`, `#C0C8F8`, `#9EA9F3`, `#7A88EA`, alias | Thang một màu cho biểu đồ nhỏ |
+
+### 3.4 Contrast (WCAG 2.x, số ghi ở page 04)
+
+| Cặp màu | Tỉ lệ | Ngưỡng | Kết quả |
+|---|---|---|---|
+| `on-surface` trên nền sáng | 15.6:1 | 4.5:1 | Đạt |
+| `on-surface-variant` trên nền sáng | 6.3:1 | 4.5:1 | Đạt |
+| `on-surface-muted` trên nền sáng | 9.7:1 | 4.5:1 | Đạt |
+| `on-primary` trên `primary` | 6.4:1 | 4.5:1 | Đạt |
+| `error` trên nền sáng | 6.1:1 | 4.5:1 | Đạt |
+| `warning` trên nền sáng | 5.2:1 | 4.5:1 | Đạt |
+| `success` trên nền sáng | 3.2:1 | 4.5:1 chữ thường; 3:1 chữ lớn và icon | **Chỉ đạt cho chữ lớn và icon**. Không dùng cho chữ nội dung 14–16 sp |
+| Chữ `on-surface` trên `heat/1` … `heat/5` | 4.8:1 – 11.6:1 | 4.5:1 | Đạt |
+
+---
+
+## 4. Chữ
+
+Font **Be Vietnam Pro**. Chữ nội dung tối thiểu 14 sp. Mỗi kiểu chữ là một Text Style trong Figma.
+
+| Text Style | Cỡ · độ đậm | Line height | Dùng cho |
+|---|---|---|---|
+| `Display/44 Bold`, `Display/36 Bold` | 44, 36 · Bold | 125% | Màn đăng nhập, màn chúc mừng |
+| `Headline/28 Bold` | 28 · Bold | 125% | Tiêu đề màn gốc của tab |
+| `Title/24 Bold` | 24 · Bold | 125% | Tiêu đề màn lồng |
+| `Headline/22 Bold` | 22 · Bold | 125% | Tiêu đề dialog, tiêu đề bước |
+| `Title/20 Bold`, `Title/18 Bold` | 20, 18 · Bold | 125%, 140% | Tiêu đề thẻ lớn, tiêu đề nhóm |
+| `Title/17 Bold`, `Title/17 SemiBold` | 17 · Bold, SemiBold | 140% | Tên deadline, tên giai đoạn |
+| `Body/17 Regular` | 17 · Regular | 140% | Nội dung dài |
+| `Body/16 Regular`, `SemiBold`, `Bold` | 16 | 140% | Nội dung chính, chữ trong ô nhập, chữ nút |
+| `Body/15 Regular`, `SemiBold` | 15 | 140% | Dòng việc, dòng thông báo |
+| `Label/14 Regular`, `Medium`, `SemiBold`, `Bold` | 14 | 140% | Dòng phụ (mã môn, hạn), chip, nhãn ô nhập |
+| `Label/13 Regular`, `SemiBold` | 13 | 140% | Chỉ cho nhãn ngắn không phải nội dung (ví dụ ngày trên lịch) |
+| `Caption/12 Regular`, `SemiBold`, `Bold`; `Overline/12 Bold` | 12 | 140% | Nhãn tab, chú thích, nhãn "BƯỚC 1/5". Không dùng cho nội dung |
+
+Giờ và ngày dùng số có độ rộng đều để thẳng cột.
+
+---
+
+## 5. Khoảng cách, bo góc, elevation
+
+### 5.1 Khoảng cách (collection **Size**)
+
+`space/2` 2 · `space/4` 4 · `space/6` 6 · `space/8` 8 · `space/10` 10 · `space/12` 12 · `space/14` 14 · `space/16` 16 · `space/20` 20 · `space/24` 24 (dp).
+
+- Lề trái phải của màn hình: **16 dp**.
+- Vùng chạm tối thiểu: **48 × 48 dp**.
+
+### 5.2 Bo góc
+
+Variables: `radius/4` 4 · `radius/6` 6 · `radius/8` 8 · `radius/12` 12 (dp).
+
+Quy ước ghi ở page 04: thẻ bo 20, nút lớn 16, nút nhỏ và ô loại việc 12–14.
+
+> **Cần thống nhất:** các giá trị 14, 16, 20 chưa có Variable. Cần thêm `radius/16` và `radius/20` (và `radius/14` nếu giữ) vào collection Size, rồi gắn vào component, để không còn giá trị gán cứng.
+
+### 5.3 Elevation (Effect Styles)
+
+| Effect Style | Giá trị | Dùng cho |
+|---|---|---|
+| `Elevation/0 Flat` | Không đổ bóng | Thẻ, thanh điều hướng (tách bằng màu nền) |
+| `Elevation/2 FAB` | Drop shadow, blur 16, y 6, độ mờ 22% | Nút + thêm deadline |
+
+Dialog và bottom sheet dùng lớp nền tối phía sau (scrim), không cần thêm mức elevation.
+
+---
+
+## 6. Tone và ngôn ngữ
+
+- Giọng thân thiện, ngắn, như một người bạn nhắc việc. Xưng "bạn", app tự gọi là "Nốt" ("Nốt gợi ý 3 bước…", "Nốt sẽ nhắc bạn trước hạn").
+- Không dùng thuật ngữ khó cho người mới (không "sprint", "backlog"). Dùng "giai đoạn", "bước", "dời việc", "giãn việc".
+- Nút ghi động từ cụ thể: "Tiếp · nhập deadline", "Dùng 4 giai đoạn · xem lại", "Lưu và bật nhắc", "Hoàn thành deadline", "Dời 2 việc".
+- Thông báo lỗi nói nguyên nhân và cách sửa: "Mất kết nối khi gọi AI. Mô tả của bạn vẫn được giữ." · "Sai email hoặc mật khẩu." · "Chưa có ngày đủ nhẹ để dời".
+- Thời gian tương đối khi gần ("Vừa xong", "15 phút", "Còn 6 giờ"), ngày tháng khi xa ("16/10").
+
+---
+
+## 7. Quy tắc component
+
+Mọi component ở page 05 dựng bằng Auto Layout, có variant, dùng Variables cho màu và khoảng cách.
+
+| Component | Variant | Quy tắc dùng |
+|---|---|---|
+| `Button` | Style: Filled, Tonal, Outlined, Text, Destructive × State: Default, Pressed, Disabled, Loading | Mỗi màn chỉ một nút Filled. Destructive chỉ trong dialog Xoá, Bỏ. Loading giữ nguyên bề rộng nút |
+| `Text field` | Default, Focused, Filled, Error, Disabled | Lỗi hiện dưới ô, màu `error`, kèm chữ nguyên nhân |
+| `PasswordField` | Hidden, Shown | Nút "Hiện" để xem mật khẩu |
+| `Card` | Type: Task, Summary × State: Default, Pressed | Cả thẻ là vùng chạm |
+| `BottomNav/iPhone · 4 tab` | Active: Hôm nay, Kế hoạch, Deadline, Hồ sơ | Chỉ hiện ở 4 màn gốc |
+| `App bar` | Default, With actions | Màn lồng có nút Back |
+| `Dialog` | Confirmation, Destructive | Nút huỷ bên trái, nút chính bên phải |
+| `Loading state` | Skeleton list, Spinner | Skeleton cho danh sách, spinner cho thao tác ngắn |
+| `Empty state` | Context: Deadline, Hôm nay | Mascot, một câu, một nút |
+| `Error state` | Type: Offline, Load failed | Mascot Lạc, nguyên nhân, nút Thử lại |
+| `Stepper/Thêm deadline` | Step 1–5 | Nhãn "BƯỚC n/5 · TÊN BƯỚC" ở đầu các màn `6`–`6b5` |
+| `Tag/Hạn nộp` | Level: Hôm nay, Quá hạn, Sắp tới, Đã nộp | Màu nền đặc theo mức, luôn có chữ ("Trễ 1 ngày", "Còn 6 giờ") |
+| `Notification/Row` | Type: Sắp đến giờ, Hạn hôm nay, Gợi ý dời, Hoàn thành, Quá hạn × State: Chưa đọc, Đã đọc | Mỗi loại một cặp tint + màu đậm và một icon. Chưa đọc: chữ đậm, giờ màu `primary`, có chấm |
+| `File/Đính kèm` | Type: PDF, DOCX, XLSX, PPTX, ZIP, Ảnh, Link, Đang tải lên | Icon và màu theo loại tệp; Đang tải lên có thanh tiến độ |
+| `WeightDots` | Level 1–3 | Độ nặng loại việc |
+| `ChipGroup · Môn học`, `OptionGroup · Loại việc`, `SwatchGroup · Màu` | Selected 1–6 | Chọn một trong nhóm |
+| `Switch` | On, Off | Màu tắt là `switch-off` |
+| `Mascot`, `MascotMini`, `MascotAnim` | 8 trạng thái; MascotMini theo mức hạn | Xem mục 9 |
+| `Icon/*` | 19 icon | Back, Close, Plus, Pencil, Filter, Check, Refresh, Right, Bell, Logout, Minus, Clock, Phase, Link, Image, Calendar, File, Upload, More |
+
+---
+
+## 8. Thông báo đẩy
+
+Thẻ thông báo trên màn khoá (`13p`): tên app "NỐT · Nhắc giai đoạn", thời gian, tiêu đề "Tới giờ làm: Chạy thực nghiệm", dòng phụ "Paper · ngày 3/7 · 20:00 mỗi ngày", hai nút: **Mở giai đoạn** và **Nhắc lại 15 phút**.
+
+---
+
+## 9. Mascot Tụi Nốt
+
+8 trạng thái (component `Mascot`): Thong Thả, Vội, Cháy, Xong, Ngủ, Đợi, Lạc, Tập Trung. File SVG gốc ở `assets/mascot/`.
+
+| Mascot | Dùng ở (theo instance ở page 03) |
+|---|---|
+| Nốt Tập Trung | `1 · Đăng nhập`, `2 · Hôm nay` |
+| Nốt Thong Thả | `1`, `7c` (deadline vừa tạo) |
+| Nốt Vội | `7`, `7d` (deadline sắp đến hạn) |
+| Nốt Cháy | Ngày quá nặng ở `4`, `4d`; nhóm Quá hạn ở `5` |
+| Nốt Xong | `8 · Đã nộp`, `10`, `10e`, giai đoạn đã xong `7s1`, `7s2`, `11` |
+| Nốt Ngủ, Nốt Đợi | Trạng thái Rỗng, Đang tải; trạng thái chưa có giai đoạn và AI đang chia ở `6b3` |
+| Nốt Lạc | Trạng thái Lỗi mất mạng, AI lỗi ở `6b3`, `7o`, `15` |
+| `MascotMini` (Quá hạn, Hôm nay, Tuần này, Sắp tới) | Tiêu đề từng nhóm ở `5` |
+
+Màn `12 · Ý nghĩa icon` giải thích ý nghĩa từng khuôn mặt.
+
+Mascot không đặt trong dòng việc để không làm rối danh sách.
+
+---
+
+## 10. Ràng buộc
+
+- Khung thiết kế 360 × 800 dp; kiểm tra ở 412 dp. Nội dung dài cuộn dọc; App bar, nút chính cuối màn và thanh điều hướng đứng yên.
+- Vùng chạm ≥ 48 × 48 dp. Chữ nội dung ≥ 14 sp.
+- Chữ dài xuống dòng (tối đa 2 dòng ở tiêu đề thẻ), không cắt mất thông tin hạn nộp.
+- Không dùng màu làm tín hiệu duy nhất.
+
+## 11. Không làm
+
+- Không có dark theme trong Lab 2.
+- Không có chat, mạng xã hội, hay đồng bộ tin nhắn Zalo, Slack.
+- Không thiết kế màn cho máy tính bảng (mô tả hành vi màn rộng ở `handoff/flutter-handoff.md`).

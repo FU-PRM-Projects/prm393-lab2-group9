@@ -13,7 +13,8 @@ Quy tắc của log này:
 |---|---|---|
 | Google Stitch | Tạo UI ban đầu và chạy các vòng lặp sửa UI | 4, 5 |
 | Claude | Phản biện UI theo heuristic và persona, viết prompt sửa cho Stitch, vẽ bộ mascot Tụi Nốt và họa tiết (SVG), soạn bản nháp persona, IA, DESIGN.md và handoff | 1–5, 9 |
-| Claude (Figma connector) | Dựng sơ đồ trên page 01 User Flow | 2 |
+| Claude (Figma connector) | Dựng sơ đồ trên page 01 User Flow; đọc page 00–06 để đối chiếu tài liệu với Figma (20/10) | 2, 9 |
+| Claude (tài liệu) | Viết lại `ux/user-flow.md`, `ux/persona.md`, `README.md`, `design/DESIGN.md`, `design/screen-spec.md`, `design/design-decisions.md`, `handoff/flutter-handoff.md` cho khớp Figma (20/10) | 1–3, 9 |
 
 > TODO: thêm dòng nếu đã dùng công cụ khác (ví dụ Figma AI, ChatGPT).
 
@@ -231,3 +232,37 @@ TODO: dán toàn bộ câu trả lời.
 | 5 | | | | | | |
 
 > Lý do hợp lệ phải nhắc tới persona (Hân), một heuristic, hoặc một ràng buộc (phạm vi, thời gian, nền tảng). "Mình thích" và "AI nói vậy" không được tính.
+
+---
+
+## Đối chiếu tài liệu với Figma (20/10/2026)
+
+- **Công cụ:** Claude (đọc Figma qua Figma connector, đọc repo GitHub).
+- **Vấn đề:** tài liệu trong repo (bản 19/10) đánh số flow khác Figma (ví dụ C2, C3, P2–P6, S1–S2 khác page 01 và 06), thiếu flow C3, P4, P5, P6, S3, dùng mã màn không có trong Figma, ghi các tính năng không có trong Figma (OTP, chế độ Không làm phiền), và ghi token màu khác Variables.
+- **Prompt nguyên văn (lần 1):**
+
+```
+Bạn hãy truy cập dự án hiện tại là là bản thiết kế figma hiện tại từ 00 - 06 https://www.figma.com/design/OkTRYkrsoJ0nkluNO4mrHz/PRM393-LAB2-Study-Planner?node-id=0-1&t=PzBuT0JfW3i7FggS-1
+Và đây là link git hiện tại https://github.com/FU-PRM-Projects/prm393-lab2-group9.
+Kiểm tra giúp tôi xem repo git đã cập nhật đúng hết nội dung , tính năng hiện tại của web chưa
+```
+
+- **Prompt nguyên văn (lần 2):**
+
+```
+https://www.figma.com/design/OkTRYkrsoJ0nkluNO4mrHz/PRM393-LAB2-Study-Planner?node-id=786-4&t=y1D6qia5KznSBaTf-1
+Đọc toàn bộ các trang và thiết kế Figma từ 00 -> 06 
+https://github.com/FU-PRM-Projects/prm393-lab2-group9
+Truy cập và đọc xem git đã cập nhật các tài liệu đúng các flow chức năng hiện tại của app ở Figma chưa
+```
+
+- **Prompt nguyên văn (lần 3):**
+
+```
+Bây giờ bãy viết thêm cập nhật thêm vào đây giúp tôi nhé
+```
+
+- **Kết quả:** bảng so sánh 15 flow (2 khớp nội dung, 6 đúng một phần, 7 thiếu hoặc sai) và bản viết lại 7 file nêu ở bảng khai báo. Claude cũng tìm ra 5 chỗ page 04 ghi giá trị khác Variables, 604 lớp chữ dưới 14 sp, và các màu gán cứng trong component (ghi ở `design/design-decisions.md`).
+- **Cách kiểm tra:** đọc lại từng file và so với Figma (tên flow ở page 06, tên frame ở page 03, Variables ở page 04).
+- **Quyết định:** TODO (người commit ghi lại: chấp nhận, chỉnh sửa hoặc từ chối từng file, và lý do).
+
