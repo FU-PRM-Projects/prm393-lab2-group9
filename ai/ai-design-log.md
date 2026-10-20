@@ -264,5 +264,18 @@ Bây giờ bãy viết thêm cập nhật thêm vào đây giúp tôi nhé
 
 - **Kết quả:** bảng so sánh 15 flow (2 khớp nội dung, 6 đúng một phần, 7 thiếu hoặc sai) và bản viết lại 7 file nêu ở bảng khai báo. Claude cũng tìm ra 5 chỗ page 04 ghi giá trị khác Variables, 604 lớp chữ dưới 14 sp, và các màu gán cứng trong component (ghi ở `design/design-decisions.md`).
 - **Cách kiểm tra:** đọc lại từng file và so với Figma (tên flow ở page 06, tên frame ở page 03, Variables ở page 04).
-- **Quyết định:** TODO (người commit ghi lại: chấp nhận, chỉnh sửa hoặc từ chối từng file, và lý do).
+- **Quyết định** (commit `7eb259e`, 20/10/2026):
+
+| File hoặc đề xuất | Quyết định | Lý do |
+|---|---|---|
+| `ux/user-flow.md` viết lại theo 15 flow của page 01 và 06 | Chấp nhận | Ràng buộc của đề: file flow và Figma phải khớp, và rubric trừ điểm khi flow không ánh xạ sang màn. Bản cũ đánh số C2, C3, P2–P6, S1–S2 khác Figma và thiếu flow C3 (thông báo), là tính năng quan trọng nhất của Minh |
+| `ux/persona.md` theo page 00 (Minh 22 tuổi, tiêu chí "< 60 giây") | Chấp nhận | Đề yêu cầu một tiêu chí thành công đo được; "< 60 giây tạo deadline 4 giai đoạn bằng AI" đo được bằng cách bấm giờ flow C1 |
+| Bỏ OTP và chế độ Không làm phiền khỏi tài liệu | Chấp nhận | Hai tính năng này không có trong Figma. Ràng buộc Lab 3: app phải dựng đúng thiết kế, tài liệu ghi tính năng không có trong Figma sẽ thành khoảng trống trong handoff |
+| `design/DESIGN.md` lấy màu theo Variables thay vì theo nhãn ở page 04 | Chấp nhận, kèm việc phải làm | Component dùng Variables nên đó là giá trị thật. Nhóm còn phải sửa nhãn ở page 04 cho khớp |
+| `design/screen-spec.md` một dòng cho mỗi màn, dữ liệu mẫu chép từ Figma | Chấp nhận | Nielsen #4 (nhất quán): cùng một deadline phải có cùng tên, hạn, số giai đoạn trên mọi màn |
+| `design/design-decisions.md` checklist ghi "Chưa đạt" ở cỡ chữ và token | Chấp nhận | Đề yêu cầu checklist có bằng chứng thật. Ghi "Đạt" khi số đo cho thấy 604 lớp chữ dưới 14 sp là không trung thực. Sẽ sửa trong Figma rồi cập nhật |
+| Đề xuất đổi `success` sang màu đậm hơn | Chưa quyết, để nhóm chọn | WCAG 1.4.3: `#1F9D63` chỉ đạt 3.46:1. Cần xem lại các màn đang dùng màu này trước khi đổi |
+| `handoff/flutter-handoff.md` đặc tả 6 mục cho từng màn | Chấp nhận | Rubric handoff: mỗi màn phải có đủ Layout, Components, States, Interactions, Navigation, Constraints; bản cũ chỉ viết theo nhóm màn |
+| Các giá trị handoff tự đặt (giới hạn độ dài, tệp 20 MB, chờ AI 20 giây) | Chỉnh sửa: giữ, ghi rõ là giá trị của đặc tả | Không có trong Figma. Giữ để người dựng không phải hỏi lại; nếu đổi ở Lab 3 thì ghi vào `docs/handoff-gaps.md` |
+
 
