@@ -14,9 +14,12 @@ Quy tắc của log này:
 | Google Stitch | Tạo UI ban đầu và chạy các vòng lặp sửa UI | 4, 5 |
 | Claude | Phản biện UI theo heuristic và persona, viết prompt sửa cho Stitch, vẽ bộ mascot Tụi Nốt và họa tiết (SVG), soạn bản nháp persona, IA, DESIGN.md và handoff | 1–5, 9 |
 | Claude (Figma connector) | Dựng sơ đồ trên page 01 User Flow; đọc page 00–06 để đối chiếu tài liệu với Figma (20/10) | 2, 9 |
-| Claude (tài liệu) | Viết lại `ux/user-flow.md`, `ux/persona.md`, `README.md`, `design/DESIGN.md`, `design/screen-spec.md`, `design/design-decisions.md`, `handoff/flutter-handoff.md` cho khớp Figma (20/10) | 1–3, 9 |
+| Claude (tài liệu) | Viết lại `ux/user-flow.md`, `ux/persona.md`, `README.md`, `design/DESIGN.md`, `design/screen-spec.md`, `design/design-decisions.md`, `handoff/flutter-handoff.md` cho khớp Figma (20/10); viết lại lần nữa theo bản đổi hướng "Nốt tích cực" (27/10) | 1–3, 9 |
+| Claude (phân tích, Figma) | Phân tích app tương tự (Finch, Daylio, How We Feel, one sec, Opal, Fortify, Unmute), viết persona và user flow mới, dựng Final UI và Prototype bản Nốt tích cực, quét contrast và vùng chạm (24/10) | 1–2, 6–8 |
 
-> TODO: thêm dòng nếu đã dùng công cụ khác (ví dụ Figma AI, ChatGPT).
+| Claude (Figma connector, Cowork) | 7 vòng sửa UI trên Figma (16–17/10, mục "Vòng lặp trên Figma") và phản biện theo heuristic (20/10) | 5, 6 |
+
+> Nếu nhóm còn dùng công cụ AI khác (ví dụ Figma AI, ChatGPT, Gemini), thêm một dòng vào bảng này.
 
 ---
 
@@ -131,7 +134,7 @@ TODO: dán toàn bộ câu trả lời của Claude.
 | 3 | Số lượng lặp 2 lần: thẻ thống kê và số đếm ở tiêu đề nhóm | Chỉnh sửa | Không chỉ bỏ thẻ: thay thẻ ba con số bằng banner một câu ("1 việc quá hạn"), vì Hân cần biết ngay điều quan trọng nhất, không cần ba con số ngang hàng |
 | 4 | Quá nhiều màu ngang hàng nhau | Chấp nhận | Nielsen #8. Màu nóng chỉ dành cho mức gấp và lịch nhiệt (DESIGN.md, nguyên tắc 5) |
 | 5 | Dòng cao khoảng 44 dp, dưới mức vùng chạm 48 dp | Chấp nhận | Yêu cầu accessibility của đề và persona dùng một tay. Dòng tăng lên 60 dp |
-| 6 | Cờ outline và cờ đặc khó phân biệt | TODO | TODO: ảnh sau vòng 1 vẫn còn cờ. Ghi quyết định thật của bạn |
+| 6 | Cờ outline và cờ đặc khó phân biệt | Chấp nhận (làm ở Figma) | Nielsen #4 và WCAG 1.4.1: hai kiểu cờ chỉ khác nhau ở độ đặc, khó phân biệt khi liếc. Stitch vẫn giữ cờ sau vòng 1, nên nhóm bỏ cờ khi dựng lại trong Figma; mức hạn giờ dùng `Tag/Hạn nộp` có chữ ("Trễ 1 ngày", "Còn 6 giờ") |
 | 7 | FAB che chữ của dòng cuối và cùng màu với tab đang chọn | Chấp nhận, xử lý ở vòng 2 | Che thời hạn của dòng cuối là mất thông tin. Lỗi này vẫn còn sau vòng 1 |
 
 **Prompt gửi Stitch (nguyên văn):**
@@ -191,47 +194,126 @@ Fix these issues. Do not change anything else.
 
 ---
 
-## Vòng lặp tiếp theo — TODO: tên vấn đề (phải khác các vòng trên)
+## Vòng lặp trên Figma với Claude (16–17/10/2026)
 
-- **Màn hình:** TODO
-- **Vấn đề có tên và heuristic:** TODO
-- **Ảnh trước:** TODO
-- **Prompt nguyên văn:** TODO
-- **Ảnh sau:** TODO
-- **Quyết định và lý do:** TODO
+Sau khi dựng lại UI trong Figma (Stitch xuất ra các layer rời, đề bài yêu cầu dựng lại bằng Auto Layout và component), nhóm dùng Claude qua Figma connector để sửa từng vấn đề. Mỗi vòng nhắm một vấn đề có tên khác nhau. Ảnh trước và sau nằm ở `assets/ai-iterations/` (số đỏ trên ảnh "trước" là số của vấn đề). Bản trình bày các vòng này là slide "Nốt · AI Iterations".
 
-> Ứng viên tốt cho vòng 3 (chọn một, xóa ghi chú này sau khi làm): lịch nhiệt ở Kế hoạch chỉ dùng màu để báo mức nặng (WCAG 1.4.1); hoặc màn Hôm nay chưa có loading, empty, error state (Nielsen #1, #9).
+> **Prompt nguyên văn của các vòng F1–F7:** nằm trong các phiên Claude ngày 16–17/10. TODO: mở lại lịch sử chat và dán nguyên văn từng prompt vào dòng "Prompt" của mỗi vòng.
+
+| Vòng | Màn hình | Vấn đề có tên | Tiêu chí | Ảnh trước → sau | AI đã làm | Quyết định và lý do |
+|---|---|---|---|---|---|---|
+| F1 | Deadline (`5`) | Danh sách là một khối liền, không có ranh giới giữa các nhóm, khó đọc lướt | Nielsen #8 | `vong-f1-deadline-truoc.png` → `vong-f1-deadline-sau.png` | Mỗi nhóm một thẻ, mọi dòng cao 56 dp, lề 16 dp | **Chỉnh sửa.** AI không thấy nhóm cuối dùng nhầm mascot vàng của nhóm Tuần này; nhóm tự sửa và đổi tên nhóm "Sau này" thành "Sắp tới" |
+| F2 | Xem trước dời việc (`4b`) | App tự chọn ngày đích, người dùng không đổi được | Nielsen #3 | `vong-f2-doi-viec-truoc.png` → `vong-f2-doi-viec-sau.png` | Bản đầu vẫn không cho chọn. Sau khi yêu cầu lại: mỗi việc có checkbox và ô "Dời sang" có ngày đề xuất, ngày sau hạn bị khoá | **Chỉnh sửa.** Đăng Khoa cần tự quyết khi đổi ca; ngày sau hạn bị khoá để ngăn lỗi (Nielsen #5) |
+| F3 | Giai đoạn đã xong (`7s1`) | Tệp đính kèm hiển thị bằng emoji, mỗi máy vẽ khác nhau | Nielsen #4 | `vong-f3-ghi-chep-giai-doan-truoc.png` → `vong-f3-ghi-chep-giai-doan-sau.png` | Icon theo loại tệp, thẻ "Đã xong" màu xanh với thanh 3 giai đoạn, ghi chép dạng dòng thời gian | **Chấp nhận.** Bản của AI đạt mục tiêu |
+| F4 | Thêm deadline, bước giai đoạn | Giai đoạn chỉ có ngày, không có giờ làm và lời nhắc; bấm Lưu mà không biết khi nào được nhắc | Nielsen #2 | `vong-f4-them-deadline-giai-doan-truoc.png` → `vong-f4-them-deadline-giai-doan-sau.png` | Luồng 4 bước (Môn, Deadline, Giai đoạn, Xem lại); mỗi giai đoạn có ngày, giờ và nhãn nhắc; bước Xem lại liệt kê mọi lời nhắc | **Chỉnh sửa.** Chữ của AI quá dài nên gộp ngày và giờ thành một dòng. Vòng F7 đổi tiếp sang khoảng ngày |
+| F5 | Thông báo (`13`) | Mascot thay cho icon, màu là tín hiệu duy nhất để biết loại thông báo | WCAG 1.4.1 | `vong-f5-thong-bao-truoc.png` → `vong-f5-thong-bao-sau.png` | Bản đầu dùng thẻ lớn, quá dày. Sau 3 prompt nữa: mỗi thông báo một dòng, một icon màu theo loại, giờ tương đối ("15 phút", "2 giờ") | **Chỉnh sửa.** Minh xem thông báo trong vài giây, nên cần một dòng mỗi thông báo |
+| F6 | Chi tiết giai đoạn (`7s`) | Chỉ có một link, không thấy tệp DOCX, PDF đã làm | Nielsen #1 | `vong-f6-chi-tiet-giai-doan-truoc.png` → `vong-f6-chi-tiet-giai-doan-sau.png` | Danh sách tệp có icon theo loại, dòng "Nhắc 18:00", thẻ tiến độ, nút Tải lên | **Chấp nhận.** Đúng nỗi đau "không nhớ đã làm gì ở từng giai đoạn" của Minh |
+| F7 | Thêm deadline, bước giai đoạn (`6b3`, `6b4`) | Mỗi giai đoạn chỉ là một buổi tối, nhưng giai đoạn thật như "chạy thực nghiệm" kéo dài cả tuần | Persona Minh | `vong-f7-giai-doan-nhieu-ngay-truoc.png` → `vong-f7-giai-doan-nhieu-ngay-sau.png`, `vong-f7-giai-doan-nhieu-ngay-sau-sheet.png` | Nút chuyển Môn học / Dự án ở bước 1; giai đoạn có từ ngày đến ngày; thanh "31/31 ngày"; giờ nhắc mỗi ngày trong sheet; thêm ô "Giao cho" với avatar thành viên | **Chỉnh sửa.** Bỏ ô "Giao cho": Nốt là app cá nhân, ai làm phần nào ghi trong ghi chép của giai đoạn |
 
 ---
 
-## Phản biện bằng AI theo 10 heuristic của Nielsen
+## Phản biện bằng AI theo 10 heuristic của Nielsen (20/10/2026)
 
 Yêu cầu của đề: dùng heuristic có tên, accessibility và persona; ít nhất 5 phát hiện, mỗi phát hiện gắn với một màn hình cụ thể.
 
-- **Ảnh đưa cho AI:** TODO: liệt kê ảnh các màn đã gửi.
-- **Prompt nguyên văn:**
+- **Công cụ:** Claude, đọc trực tiếp 75 màn của page `03 Final UI` qua Figma connector (cùng bộ ảnh trong `assets/figma/`).
+- **Ảnh đưa cho AI:** toàn bộ `assets/figma/*.png` (75 màn, 360 × 800).
+- **Yêu cầu của Kim (nguyên văn):** `Làm mục 1 2 3 trước` (mục 3 là phần phản biện AI còn trống trong log).
+- **Prompt phản biện Claude dùng (nguyên văn):**
 
 ```
-TODO: dán prompt đã gửi.
+Review the final UI of the "Nốt" study planner (75 screens, 360x800, page 03 Final UI).
+Primary persona: Minh, final-year student, team lead of 4, part-time job, opens the app
+for a few seconds between classes on an iPhone 12, and currently juggles Google Calendar,
+Notion, ClickUp and Linear. Secondary: Đăng Khoa (evening shifts, weak 4G), Bảo Ngọc
+(first-year, first time using a planner). Supporting: Quốc Huy (developer, 130% text).
+Check against Nielsen's 10 usability heuristics, WCAG 2.1 AA (contrast 4.5:1 for body
+text and 3:1 for large text and UI controls, 48x48 dp touch targets, body text at least
+14 sp, no information by colour alone), and the persona's needs.
+Give at least 5 findings. For each finding: the screen code, what is wrong, the heuristic
+or criterion, the severity (high, medium, low), and one concrete fix. Only report problems
+you can see on the screens.
 ```
 
-- **Toàn bộ câu trả lời:**
+- **Toàn bộ câu trả lời của Claude:**
 
 ```
-TODO: dán toàn bộ câu trả lời.
+Phản biện UI cuối của Nốt — 9 phát hiện
+
+1. [Cao] 6b3 (trạng thái "Chưa có giai đoạn" và "AI lỗi") — Nút cố định "Tiếp · xem lại"
+   ở cuối màn đè lên nút "Thêm giai đoạn" và "Tự nhập tay". Hai nút này là lối ra khi AI
+   lỗi, nhưng chỉ còn thấy một nửa và vùng chạm bị che.
+   Tiêu chí: Nielsen #9 (giúp người dùng phục hồi lỗi); vùng chạm 48 × 48 dp.
+   Sửa: đặt nội dung trong vùng cuộn có lề dưới bằng chiều cao vùng nút (≈ 88 dp), hoặc
+   đưa "Thêm giai đoạn" lên ngay dưới danh sách.
+
+2. [Cao] 5 (Deadline) — Nút + che chữ "Còn 30 ngày" của dòng cuối "Nộp paper hội nghị".
+   Hạn nộp là thông tin chính của dòng. Lỗi này đã sửa ở vòng Stitch nhưng xuất hiện lại.
+   Tiêu chí: Nielsen #1 (hiển thị trạng thái hệ thống).
+   Sửa: thêm lề dưới 88 dp cho danh sách để dòng cuối cuộn lên trên nút +.
+
+3. [Trung bình] 5e, 5o1, 5o2, 5o3 — Bốn màn kết quả dùng kiểu danh sách cũ: không có thẻ
+   nhóm, hạn nộp là chữ thường thay vì Tag/Hạn nộp, "Còn 6 giờ" màu xanh thay vì cam,
+   thiếu nhóm "Sắp tới". Người dùng thấy danh sách "đổi dạng" sau mỗi thao tác.
+   Tiêu chí: Nielsen #4 (nhất quán và chuẩn).
+   Sửa: dựng lại 4 màn từ instance của màn 5, chỉ thêm snackbar.
+
+4. [Trung bình] 5e — Snackbar "Đã xoá deadline" có chữ "Hoàn tác" màu xanh đậm trên nền
+   xanh primary, gần như không đọc được; đồng thời dialog Xoá vừa nói "Không hoàn tác
+   được". Hai thông điệp mâu thuẫn.
+   Tiêu chí: Nielsen #4; WCAG 1.4.3 (contrast).
+   Sửa: chọn một hướng. Nếu cho hoàn tác thì sửa câu trong dialog và đổi chữ Hoàn tác sang
+   màu on-primary; nếu không thì bỏ chữ Hoàn tác khỏi snackbar.
+
+5. [Trung bình] 7b (Sửa deadline) và 7, 7s1, 7s2 (Lab 2) — Giai đoạn ở đây là một buổi có
+   giờ (19:00–21:00) với nhắc "30 phút / 1 giờ" trước, trong khi 6b4 và 7s (Paper) dùng
+   khoảng ngày và "nhắc mỗi ngày lúc 09:00". Một khái niệm có hai cách hiển thị và hai
+   cách nhắc.
+   Tiêu chí: Nielsen #4; persona Minh (giai đoạn thật kéo dài nhiều ngày).
+   Sửa: cập nhật 7b và dữ liệu Lab 2 theo mô hình khoảng ngày + giờ nhắc mỗi ngày.
+
+6. [Trung bình] 2, 2f, 4, 4b — Nhiều dòng nội dung dùng chữ 12–13 sp, ví dụ "Nộp Lab 2
+   trước 23:59 để giữ chuỗi" (2), dòng môn và hạn trong thẻ (2f), "Sang T5 và T7 · Rất nặng
+   → Nặng" (4), dòng hạn của việc (4b).
+   Tiêu chí: yêu cầu chữ nội dung ≥ 14 sp; Minh đọc lướt khi đang di chuyển; Quốc Huy
+   phóng to chữ.
+   Sửa: đưa các dòng nội dung lên Label/14; giữ 12–13 sp cho nhãn tab, nhãn bước, số lịch.
+
+7. [Thấp] 2 (Hôm nay) — Thẻ trong mục "Cần để ý" chỉ có tên việc ("Tiểu luận chương 3")
+   và một icon xoay vòng, không nói vì sao cần để ý (đã dời 3 lần). Người mới như Bảo Ngọc
+   phải đoán ý nghĩa icon.
+   Tiêu chí: Nielsen #6 (nhận ra thay vì phải nhớ).
+   Sửa: thêm dòng phụ "Đã dời 3 lần · chia nhỏ?" dưới tên việc.
+
+8. [Thấp] 15b — Dialog "Đóng app để thử lỗi?" dùng kiểu kính mờ, nút chữ đỏ trên nền
+   hồng, khác hẳn component Dialog dùng ở Xoá và Bỏ deadline.
+   Tiêu chí: Nielsen #4; WCAG 1.4.3 (chữ nút trên nền nhạt trong suốt khó đạt 4.5:1).
+   Sửa: thay bằng instance Dialog Type=Destructive.
+
+9. [Thấp] 10 (Hồ sơ) — Biểu đồ đường "Tuần này" không có trục, đơn vị hay chú giải;
+   người dùng không biết đường đo cái gì (số việc xong? giờ làm?).
+   Tiêu chí: Nielsen #2 (khớp với thế giới thực); WCAG 1.1.1 nếu dựng thành ảnh.
+   Sửa: thêm tiêu đề "Việc xong mỗi ngày" và số ở điểm cao nhất, hoặc thay bằng cột có số.
+
+Không thấy lỗi ở: chỉ dùng màu cho trạng thái (Tag/Hạn nộp, lịch nhiệt đều có chữ hoặc
+số), Back trên màn lồng, trạng thái rỗng / đang tải / lỗi của Deadline.
 ```
 
-- **Bảng quyết định:**
+- **Bảng quyết định** (Claude đề xuất, Kim xác nhận khi commit):
 
 | # | Màn hình | Phát hiện | Heuristic hoặc tiêu chí | Quyết định | Lý do | Thấy trong Figma ở |
 |---|---|---|---|---|---|---|
-| 1 | TODO | TODO | TODO | TODO | TODO | TODO |
-| 2 | | | | | | |
-| 3 | | | | | | |
-| 4 | | | | | | |
-| 5 | | | | | | |
+| 1 | `6b3` | Nút cố định che nút "Thêm giai đoạn" và "Tự nhập tay" | Nielsen #9; vùng chạm 48 dp | Chấp nhận | Đây là lối ra duy nhất khi AI lỗi trong flow C1, flow quan trọng nhất của Minh | Cần sửa: `6b3 · Trạng thái — Chưa có giai đoạn`, `6b3 · Trạng thái — AI lỗi` |
+| 2 | `5` | Nút + che hạn nộp của dòng cuối | Nielsen #1 | Chấp nhận | Hạn nộp là thông tin chính; lỗi đã sửa ở vòng Stitch thì không được để quay lại | Cần sửa: `5 · Deadline` |
+| 3 | `5e`, `5o1`, `5o2`, `5o3` | Màn kết quả dùng kiểu danh sách cũ | Nielsen #4 | Chấp nhận | Rubric "Consistency": cùng một thành phần không được trông khác nhau giữa các màn | Cần sửa: 4 frame trên, dựng từ instance của `5` |
+| 4 | `5e` | Snackbar "Hoàn tác" khó đọc và mâu thuẫn với dialog "Không hoàn tác được" | Nielsen #4; WCAG 1.4.3 | Chỉnh sửa | Giữ câu "Không hoàn tác được" trong dialog (xoá là thao tác phá huỷ, đã có xác nhận) và bỏ chữ Hoàn tác khỏi snackbar, thay vì làm thêm tính năng khôi phục | Cần sửa: `5e · Đã xoá deadline` |
+| 5 | `7b`, `7`, `7s1`, `7s2` | Giai đoạn một buổi, nhắc "30 phút trước" khác mô hình khoảng ngày | Nielsen #4; persona Minh | Chỉnh sửa | Sửa `7b` theo `6b4` (từ ngày, đến ngày, giờ nhắc mỗi ngày). Giữ dữ liệu Lab 2 ở `7` vì một giai đoạn dài một buổi vẫn hợp lệ (từ ngày = đến ngày) | Cần sửa: `7b · Sửa deadline` |
+| 6 | `2`, `2f`, `4`, `4b` | Chữ nội dung 12–13 sp | Yêu cầu chữ ≥ 14 sp | Chấp nhận | Yêu cầu bắt buộc của đề; trùng với mục "Chưa đạt" trong `design/design-decisions.md` | Cần sửa: các text dùng `Caption/12`, `Label/13` cho nội dung |
+| 7 | `2` | Thẻ "Cần để ý" không nói lý do | Nielsen #6 | Chấp nhận | Bảo Ngọc là người mới; một dòng phụ không làm màn dày thêm | Cần sửa: `2 · Hôm nay` |
+| 8 | `15b` | Dialog khác component Dialog | Nielsen #4 | Từ chối | Màn `15` chỉ là công cụ demo cho Lab 3 (Crashlytics), người dùng thật không thấy; ràng buộc thời gian, ưu tiên các màn trong flow chính | — |
+| 9 | `10` | Biểu đồ "Tuần này" không có nhãn | Nielsen #2 | Chỉnh sửa | Thêm tiêu đề "Việc xong mỗi ngày", không đổi loại biểu đồ | Cần sửa: `10 · Hồ sơ` |
 
-> Lý do hợp lệ phải nhắc tới persona (Hân), một heuristic, hoặc một ràng buộc (phạm vi, thời gian, nền tảng). "Mình thích" và "AI nói vậy" không được tính.
+> Lý do hợp lệ phải nhắc tới persona, một heuristic, hoặc một ràng buộc (phạm vi, thời gian, nền tảng). Sau khi sửa trong Figma, đổi cột "Thấy trong Figma ở" từ "Cần sửa" thành tên frame đã sửa và xuất lại PNG vào `assets/figma/`.
 
 ---
 
@@ -278,4 +360,34 @@ Bây giờ bãy viết thêm cập nhật thêm vào đây giúp tôi nhé
 | `handoff/flutter-handoff.md` đặc tả 6 mục cho từng màn | Chấp nhận | Rubric handoff: mỗi màn phải có đủ Layout, Components, States, Interactions, Navigation, Constraints; bản cũ chỉ viết theo nhóm màn |
 | Các giá trị handoff tự đặt (giới hạn độ dài, tệp 20 MB, chờ AI 20 giây) | Chỉnh sửa: giữ, ghi rõ là giá trị của đặc tả | Không có trong Figma. Giữ để người dựng không phải hỏi lại; nếu đổi ở Lab 3 thì ghi vào `docs/handoff-gaps.md` |
 
+---
 
+## Đồng bộ tài liệu với bản "Nốt tích cực" (27/10/2026)
+
+- **Công cụ:** Claude (đọc Figma qua Figma connector, đọc repo GitHub).
+- **Vấn đề:** ngày 24/10 giảng viên yêu cầu đổi Nốt từ app quản lý deadline sang app ghi chú tích cực (5 ý). Figma đã có Final UI, prototype và kiểm tra accessibility mới, nhưng repo vẫn ở bản Study Planner (commit cuối `5f00bff`, 20/10): persona, 15 flow C1–S3, token `success` cũ `#1F9D63`, handoff cho 74 frame cũ.
+- **Prompt nguyên văn (lần 1):**
+
+```
+Xem giúp tôi github đã cập nhật các phiên bản mới nhất hiện tại của lab 2 chưa nhỉ
+```
+
+- **Prompt nguyên văn (lần 2):**
+
+```
+Bạn làm dùm mình luôn đi
+```
+
+- **Kết quả:** viết lại 7 file (`README.md`, `ux/persona.md`, `ux/user-flow.md`, `design/DESIGN.md`, `design/screen-spec.md`, `design/design-decisions.md`, `handoff/flutter-handoff.md`) theo section `Final UI · Nốt tích cực (24/10)` ở page 03, page 04–05 (Variables, component mới) và bản persona / user flow 24/10.
+- **Cách kiểm tra:** so tên frame ở page 03, tên component và Variables ở page 04–05 với từng file; kiểm tra mọi màn S01–S12 có trong bảng flow → màn.
+- **Quyết định:**
+
+| File hoặc đề xuất | Quyết định | Lý do |
+|---|---|---|
+| Viết lại persona, user flow theo bản 24/10 (Minh kiệt sức; F1–F3, P1–P8, T1–T3) | Chấp nhận | Ràng buộc: đề tài đã đổi theo yêu cầu giảng viên; rubric trừ điểm khi tài liệu và Figma khác nhau |
+| Giữ tên biến `heat/*` nhưng đổi nghĩa thành tâm trạng | Chấp nhận | Ràng buộc thời gian: component lịch đã gắn biến này; đổi tên biến sẽ phải sửa lại mọi instance. Ghi rõ nghĩa mới trong `DESIGN.md` |
+| Checklist accessibility ghi "Đạt" theo lần quét 24/10 | Chấp nhận | Có số đo thật (thấp nhất 4.56:1) và section kiểm tra 360 / 412 dp trên page 03 |
+| Bo góc 14, 16, 32, 999 ghi "chưa có Variable" | Chấp nhận, kèm việc phải làm | Rubric "Design tokens": giá trị gán cứng bị trừ điểm; cần thêm biến `radius/*` trong Figma |
+| Giá trị handoff tự đặt (giới hạn ký tự, Hoàn tác 5 giây, lỗi sau 10 giây) | Chỉnh sửa: giữ, ghi rõ là giá trị của đặc tả | Không có trong Figma nhưng người dựng cần để không phải hỏi lại |
+
+> TODO: vòng lặp Stitch, 7 vòng sửa trên Figma (`assets/ai-iterations/`), phản biện AI theo heuristic (20/10) và ảnh `assets/stitch/` hiện vẫn thuộc bản Study Planner. Nếu giảng viên yêu cầu log theo bản mới, thêm vòng lặp và phản biện cho các màn S02, S03, S05.
