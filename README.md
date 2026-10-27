@@ -64,6 +64,6 @@ Chi tiết từng lần dùng: [`ai/ai-design-log.md`](ai/ai-design-log.md).
 |---|---|---|
 | Tab | 4 | Hôm nay, Hũ, Thử thách, Hành trình |
 | Màn hình | 12 | S01 Chào mừng & Đăng nhập, S02 Hôm nay, S03 Ghi nốt, S04 Nốt đã vào hũ, S05 Hũ & Nhật ký, S06 Chi tiết nốt, S07 Thử thách, S08 Chi tiết thử thách, S09 Tự chủ, S10 Thở 90 giây, S11 Hành trình, S12 Cài đặt |
-| Frame ở page 03 (bản mới) | 29 + 8 AI + 8 a11y | Màn gốc, biến thể trạng thái, overlay |
+| Frame ở page 03 (bản mới) | 30 + 8 AI + 8 a11y | Màn gốc, biến thể trạng thái, overlay |
 | User flow | 14 | F1 Ghi nốt buổi tối, F2 Tự chủ: dừng lướt vô thức, F3 Nhận và hoàn thành thử thách; P1–P8; T1 Hũ rỗng, T2 Mất mạng, T3 Đang tải |
 | Vòng lặp AI | 3 vòng Stitch + 7 vòng trên Figma | Xem `ai/ai-design-log.md` |

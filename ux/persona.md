@@ -17,7 +17,7 @@ Sinh viên năm cuối đang kiệt sức chỉ nhớ những gì mình chưa l�
 | # | Tiêu chí | Cách đo |
 |---|---|---|
 | **Chính** | Người dùng ghi xong một chiến thắng nhỏ (chọn tâm trạng + 1 chiến thắng) trong **dưới 30 giây** kể từ khi chạm thông báo buổi tối | Thời gian từ lúc mở `S03` (bước 1) đến lúc thấy `S04 · Nốt đã vào hũ`. Lab 3 đo bằng sự kiện Analytics và bài test ARTEMIS |
-| Phụ | Ghi một lần tự chủ bằng nút "Mình vừa dừng lại" chỉ cần **1 lần chạm** | Số lần chạm từ `S02` đến khi số trên hũ tăng 1 |
+| Phụ | Ghi một lần tự chủ từ màn Hôm nay chỉ cần **2 lần chạm** ("Dừng lại" → "Mình vừa dừng lại"), không cần mở khoá | Số lần chạm từ `S02` đến khi thấy `S04` |
 | Phụ | Màn hình thở 90 giây (`S10`) mở ra trong **dưới 2 giây** | Thời gian từ lúc chạm "Thở 90 giây" đến khi sóng thở bắt đầu chạy |
 
 ---
@@ -37,7 +37,7 @@ Sinh viên năm cuối đang kiệt sức chỉ nhớ những gì mình chưa l�
 | Nhu cầu accessibility | Chữ nội dung ≥ 16 sp, tương phản ≥ 4.5:1, nút ≥ 48 dp ở nửa dưới màn hình để chạm bằng ngón cái. Không dùng chỉ màu để báo tâm trạng (kèm icon mặt mascot + chữ). |
 | Câu hỏi Nốt trả lời | "Hôm nay mình đã làm được gì?" — thay vì "Hôm nay mình còn nợ gì?" |
 
-**Một ngày của Minh với Nốt:** 21h30 nhận thông báo "Hôm nay bạn đã làm được gì?" → chọn tâm trạng "Ổn", ghi "Dọn bàn học và gửi email hỏi thầy" → nốt rơi vào hũ (flow F1). 0h15 nhận ra đã lướt TikTok 40 phút → chạm "Mình vừa dừng lại" trên `S02` (flow F2). Sáng hôm sau `S02` gợi ý thẻ "Hỏi thầy 1 câu sau giờ học" (flow F3).
+**Một ngày của Minh với Nốt:** 21h30 nhận thông báo "Hôm nay bạn đã làm được gì?" → chọn tâm trạng "Ổn", ghi "Dọn bàn học và gửi email hỏi thầy" → nốt rơi vào hũ (flow F1). 0h15 nhận ra đã lướt TikTok 40 phút → chạm "Dừng lại" trên `S02` rồi "Mình vừa dừng lại" ở `S09` (flow F2). Sáng hôm sau mở tab Thử thách và nhận thẻ "Hỏi thầy 1 câu sau giờ học" (flow F3).
 
 ---
 

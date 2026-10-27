@@ -12,7 +12,9 @@ Bộ flow: **3 flow chính** (F1–F3), **8 flow phụ** (P1–P8), **3 flow tr�
 
 - **Cổng vào:** `S01` khi chưa đăng nhập.
 - **4 tab cấp cao nhất** (component `BottomNav · Nốt`): Hôm nay (`S02`), Hũ (`S05`), Thử thách (`S07`), Hành trình (`S11`).
-- **Nút "Ghi nốt"** trên `S02` mở `S03` toàn màn hình. Thông báo buổi tối cũng mở thẳng `S03`.
+- **Nút "Ghi nốt"** trên `S02` và **nút nổi +** ở góc dưới phải của `S05`, `S07`, `S11` mở `S03` toàn màn hình. Thông báo buổi tối cũng mở thẳng `S03`.
+- **Lối tắt trên `S02`:** 3 nút tròn "Dừng lại" (→ `S09`), "Thở 90 giây" (→ `S10`), "Thử thách" (→ `S07`).
+- **Avatar** ở góc trên phải của 4 màn tab mở `S12` Cài đặt. Nút chuông cạnh avatar chưa có màn đích trong Figma (xem mục 1.3).
 - **Màn lồng** (có nút Back, không có thanh tab): `S03`, `S04`, `S06`, `S08`, `S09`, `S10`, `S12`.
 - Dialog và biến thể trạng thái không tính là màn hình riêng.
 
@@ -26,16 +28,17 @@ flowchart TD
     TAB --> S07[S07 Thử thách]
     TAB --> S11[S11 Hành trình]
     S02 -->|Ghi nốt| S03[S03 Ghi nốt]
+    FAB((+ trên S05, S07, S11)) --> S03
     S03 --> S04[S04 Nốt đã vào hũ]
     S05 --> S06[S06 Chi tiết nốt]
     S11 --> S06
     S07 --> S08[S08 Chi tiết thử thách]
-    S02 --> S08
-    S02 --> S09[S09 Tự chủ]
-    S07 --> S09
+    S11 -->|chặng hiện tại| S08
+    S02 -->|lối tắt| S07
+    S02 -->|lối tắt Dừng lại| S09[S09 Tự chủ]
     S09 --> S10[S10 Thở 90 giây]
-    S02 -->|nút nhanh| S10
-    S11 --> S12[S12 Cài đặt]
+    S02 -->|lối tắt| S10
+    TAB -->|avatar| S12[S12 Cài đặt]
 ```
 
 ### 1.2 Danh sách màn hình (12 màn)
@@ -44,16 +47,16 @@ flowchart TD
 |---|---|---|---|---|
 | S01 | Chào mừng & Đăng nhập | Cổng vào | Mở app khi chưa đăng nhập | `S01 · Chào mừng & Đăng nhập` |
 | S02 | Hôm nay | Tab 1 | Sau đăng nhập, thanh tab | `S02 · Hôm nay` |
-| S03 | Ghi nốt (3 bước: tâm trạng → chiến thắng → vài dòng) | Lồng, toàn màn hình | Nút "Ghi nốt", thông báo buổi tối | `S03a · bước 1 tâm trạng`, `S03a · chọn Rối (sơ cứu tinh thần)`, `S03b · bước 2 chiến thắng`, `S03b · dialog thoát giữa chừng`, 5 frame `S03b · AI · …` |
+| S03 | Ghi nốt (3 bước: tâm trạng → chiến thắng → vài dòng) | Lồng, toàn màn hình | Nút "Ghi nốt" (S02), nút + (S05, S07, S11), thông báo buổi tối | `S03a · bước 1 tâm trạng`, `S03a · chọn Rối (sơ cứu tinh thần)`, `S03b · bước 2 chiến thắng`, `S03b · dialog thoát giữa chừng`, `S03c · bước 3 nhật ký`, 5 frame `S03b · AI · …` |
 | S04 | Nốt đã vào hũ (kết quả) | Lồng | S03 sau khi lưu | `S04 · Nốt đã vào hũ`, `S04 · lưu khi mất mạng`, `S04 · đạt mốc tháng` |
 | S05 | Hũ & Nhật ký | Tab 2 | Thanh tab | `S05 · Hũ & Nhật ký`, `S05 · hũ rỗng`, `S05 · mất mạng, chưa có dữ liệu`, `S05 · vừa xoá nốt (hoàn tác)` |
 | S06 | Chi tiết nốt (xem / sửa / viết nhật ký) | Lồng | S05, S11 | `S06 · Chi tiết nốt`, `S06 · dialog xoá nốt` |
-| S07 | Thử thách | Tab 3 | Thanh tab | `S07 · Thử thách` |
-| S08 | Chi tiết thử thách (làm + ghi cảm giác trước/sau, ghi vận động) | Lồng | S07, S02 | `S08 · Chi tiết thử thách` |
-| S09 | Tự chủ (khoá PIN / sinh trắc học) | Lồng | S02, S07 | `S09 · Tự chủ` |
-| S10 | Thở 90 giây khi khó dừng | Lồng | S09, nút nhanh trên S02 | `S10 · Thở 90 giây`, `S10 · sau khi thở` |
+| S07 | Thử thách | Tab 3 | Thanh tab, lối tắt trên S02, chặng trên S11a, "Đổi thẻ dễ hơn" ở S08 | `S07 · Thử thách` |
+| S08 | Chi tiết thử thách (làm + ghi cảm giác trước/sau, ghi vận động) | Lồng | S07, S11a | `S08 · Chi tiết thử thách` |
+| S09 | Tự chủ (phần thói quen khoá bằng PIN / sinh trắc học) | Lồng | Lối tắt "Dừng lại" trên S02 | `S09 · Tự chủ` |
+| S10 | Thở 90 giây khi khó dừng | Lồng | S09, lối tắt trên S02 | `S10 · Thở 90 giây`, `S10 · sau khi thở` |
 | S11 | Hành trình (3 tab con: Con đường, Thống kê, Lịch năng lượng) | Tab 4 | Thanh tab | `S11a · Con đường`, `S11b · Thống kê` (+ cuộn xuống, Thẻ tuần), `S11c · Lịch` (+ đang tải, xem theo năm), `S11 · Hỏi Nốt (AI, bonus)` |
-| S12 | Cài đặt (giờ nhắc, Giờ tỉnh, khoá, Nốt AI, đăng xuất) | Lồng | S11 | `S12 · Cài đặt`, `S12 · Cài đặt · bật/tắt Nốt AI` |
+| S12 | Cài đặt (giờ nhắc, Giờ tỉnh, khoá, Nốt AI, đăng xuất) | Lồng | Avatar trên 4 màn tab | `S12 · Cài đặt`, `S12 · Cài đặt · bật/tắt Nốt AI` |
 
 ### 1.3 Dialog và trạng thái đi kèm
 
@@ -67,6 +70,7 @@ flowchart TD
 | Empty state | Hũ còn trống + "Ghi nốt đầu tiên" | S05 |
 | Loading | Skeleton "Đang tải lịch năng lượng…" | S11c |
 | Error state | "Chưa tải được hũ" + Thử lại | S05 |
+| Nút chuông (chưa nối) | Figma vẽ chuông ở 4 màn tab nhưng chưa có màn đích; handoff đề xuất mở `S12` mục Nhắc nhở | S02, S05, S07, S11 |
 | Gợi ý hỗ trợ | Tâm trạng "Rối" → "Sơ cứu 1 phút: 5-4-3-2-1"; trầm nhiều ngày → gợi ý người để nói chuyện / đường dây hỗ trợ | S03a, P6 |
 
 ---
@@ -78,6 +82,7 @@ flowchart TD
 - **Bắt đầu:** 21h30, thông báo "Hôm nay bạn đã làm được gì?" (hoặc nút "Ghi nốt" trên `S02`).
 - **Mục tiêu:** lưu một chiến thắng nhỏ, có thể kèm vài dòng nhật ký.
 - **Kết thúc:** `S04` — nốt rơi vào hũ, Tụi Nốt phản hồi, quay về `S02`.
+- **Happy path theo frame:** `S03a` → `S03b` ("Tiếp") → `S03c` ("Lưu vào hũ") → `S04`. "Bỏ qua nhật ký" ở `S03b` và "Bỏ qua" ở `S03c` đi thẳng tới `S04`.
 - **Nhánh thay thế:** tâm trạng thấp → chạm một chip chiến thắng có sẵn, xem lại một nốt cũ; bỏ qua nhật ký. Chọn "Rối" → gợi ý "Sơ cứu 1 phút". Kể tự do → Nốt AI tách thành các nốt để người dùng xác nhận (thiết kế sẵn cho Final Assignment, xem `S03` trong [`design/screen-spec.md`](../design/screen-spec.md)).
 - **Nhánh lỗi / phục hồi:** mất mạng → lưu nháp trên máy, banner, tự đồng bộ khi có mạng; thoát giữa chừng → dialog "Giữ nốt đang ghi?".
 
@@ -110,21 +115,24 @@ flowchart TD
 - **Nhánh thay thế:** khó dừng → `S10` thở theo sóng 90 giây, rồi chọn việc thay thế (đi bộ, uống nước, nhắn bạn, đi ngủ).
 - **Nhánh phục hồi:** đã lỡ lướt / chơi quá đà → ghi nhẹ "lúc đó mình đang thấy gì?", không trừ gì; thông điệp "Nhận ra cũng là bắt đầu tự chủ".
 
-Ở `S09`, người dùng tự chọn thói quen muốn bớt (riêng tư, mở bằng khoá). Nút "Dừng lại" trên `S02` không cần khoá. "Giờ tỉnh" (vd. 23h–1h) để app nhắc nhẹ.
+Nút "Dừng lại" trên `S02` mở `S09`; nút "Mình vừa dừng lại" ở `S09` ghi ngay một lần tự chủ và mở `S04` (tổng 2 chạm, không cần mở khoá). Chỉ mục "Thói quen muốn bớt" ở `S09` bị che đến khi mở khoá (riêng tư). "Giờ tỉnh" (vd. 23h–1h) để app nhắc nhẹ.
 
 ```mermaid
 flowchart TD
-    A([Nhận ra mình đang lướt / muốn mở app gây nghiện]) --> B{Dừng được ngay?}
-    B -->|Được| C[S02 Chạm nút Dừng lại]
-    B -->|Khó| D[S10 Thở theo sóng 90 giây]
+    A([Nhận ra mình đang lướt / muốn mở app gây nghiện])
+    A --> S2[S02 Chạm lối tắt Dừng lại]
+    S2 --> S9[S09 Tự chủ]
+    S9 --> B{Dừng được ngay?}
+    B -->|Được| C[S09 Chạm Mình vừa dừng lại]
+    B -->|Khó| D[S09 Khó dừng? → S10 Thở theo sóng 90 giây]
     D --> E{Cơn sóng đã hạ?}
-    E -->|Rồi| F[S10 sau khi thở: chọn việc thay thế]
+    E -->|Rồi| F[S10 sau khi thở: chọn việc thay thế + Ghi vào hũ]
     E -->|Chưa| G[Thở thêm 1 vòng]
-    G --> F
-    C --> H[+1 lần tự chủ rơi vào hũ]
+    G --> E
+    C --> H[S04 +1 lần tự chủ vào hũ]
     F --> H
     H --> I([Về S02 Hôm nay])
-    J([Đã lỡ lướt / chơi quá đà]) --> K[S09 Tự chủ - mở khoá]
+    J([Đã lỡ lướt / chơi quá đà]) --> K[S09 Tự chủ - mở khoá phần thói quen]
     K --> L[Ghi nhẹ: lúc đó mình đang thấy gì?]
     L --> M[Thông điệp: Nhận ra cũng là bắt đầu tự chủ]
     M --> I
@@ -132,7 +140,7 @@ flowchart TD
 
 ### F3 · Nhận và hoàn thành một thử thách (flow chính)
 
-- **Bắt đầu:** buổi sáng, `S02` hoặc `S07` gợi ý một thẻ thử thách hợp tâm trạng hôm qua (vd. "Hỏi thầy 1 câu sau giờ học", "Đi bộ 10 phút").
+- **Bắt đầu:** buổi sáng, `S07` (mở từ tab, lối tắt "Thử thách" trên `S02`, hoặc chặng hiện tại trên `S11a`) gợi ý một thẻ thử thách hợp tâm trạng hôm qua (vd. "Hỏi thầy 1 câu sau giờ học", "Đi bộ 10 phút").
 - **Mục tiêu:** làm thử thách ngoài đời và ghi cảm giác trước/sau.
 - **Kết thúc:** thử thách thành một nốt trong hũ, thẻ cấp tiếp theo được mở.
 - **Nhánh thay thế:** quá sức → "Đổi thẻ dễ hơn"; chưa có dịp → để mai, không bị trừ gì.
@@ -140,9 +148,9 @@ flowchart TD
 
 ```mermaid
 flowchart TD
-    A([S07 hoặc S02 gợi ý thẻ thử thách]) --> B[S08 Chi tiết thử thách]
+    A([S07 thẻ thử thách: từ tab, lối tắt S02 hoặc S11a]) -->|Nhận thử thách| B[S08 Chi tiết thử thách]
     B --> C{Nhận thử thách?}
-    C -->|Quá sức| D[Đổi thẻ dễ hơn cùng chủ đề]
+    C -->|Quá sức| D[Đổi thẻ dễ hơn: về S07 với thẻ cấp thấp hơn]
     D --> B
     C -->|Để mai| E([Về S07, thẻ giữ lại, không trừ gì])
     C -->|Nhận| F[Chấm mức hồi hộp 1–5 trước khi làm]
@@ -168,7 +176,7 @@ Sơ đồ đầy đủ ở Figma page `01 User Flow` (nhóm "Flow phụ · P1–
 | P5 | Xem, sửa, xoá một nốt | Mở tab Hũ → nốt đã sửa / đã xoá | Dialog xoá (destructive), Hoàn tác 5 giây | S05, S06 |
 | P6 | Ngày tệ: nhìn lại hành trình | Mở Hành trình → đọc lại chiến thắng cũ | Trầm nhiều ngày → dialog gợi ý người để nói chuyện / đường dây hỗ trợ | S11, S05, S06 |
 | P7 | Thông báo → mở đúng màn hình | Chạm thông báo (nhắc tối / Giờ tỉnh / thẻ mới) → tiếp F1 / F2 / F3 | Đang đăng xuất → S01 trước rồi mới tới đích | S03, S02, S08 |
-| P8 | Hồ sơ & cài đặt | Mở Hành trình → đã lưu giờ nhắc / Giờ tỉnh / khoá / Nốt AI / đăng xuất | Từ chối quyền thông báo (Android 13+) → banner bật lại trong Cài đặt máy | S11, S12, S01 |
+| P8 | Hồ sơ & cài đặt | Chạm avatar ở một màn tab → đã lưu giờ nhắc / Giờ tỉnh / khoá / Nốt AI / đăng xuất | Từ chối quyền thông báo (Android 13+) → banner bật lại trong Cài đặt máy | S02, S12, S01 |
 | T1 | Hũ rỗng | Người mới mở Hũ → nốt đầu tiên | Empty state: minh họa + lời mời + 1 nút | S05, S03, S04 |
 | T2 | Mất mạng / tải lỗi | Mở S05/S11 offline → dữ liệu cũ + banner hoặc màn lỗi | Error state: lý do dễ hiểu + Thử lại | S05, S11 |
 | T3 | Đang tải → kết quả | Mở Hành trình → skeleton → lịch đầy đủ | Quá 10 giây → chuyển sang T2 | S11 |
@@ -200,7 +208,7 @@ flowchart LR
 | Màn hình | Flow chính | Flow phụ / trạng thái |
 |---|---|---|
 | S01 Chào mừng & Đăng nhập | | P1, P2, P8 |
-| S02 Hôm nay | F1, F2, F3 | P1, P2, P3, P7 |
+| S02 Hôm nay | F1, F2, F3 | P1, P2, P3, P7, P8 |
 | S03 Ghi nốt | F1 | P7, T1 |
 | S04 Nốt đã vào hũ | F1, F3 | P3, T1 |
 | S05 Hũ & Nhật ký | | P4, P5, P6, T1, T2 |
@@ -209,17 +217,17 @@ flowchart LR
 | S08 Chi tiết thử thách | F3 | P3, P7 |
 | S09 Tự chủ | F2 | P8 (khoá) |
 | S10 Thở 90 giây | F2 | |
-| S11 Hành trình | | P6, P8, T2, T3 |
+| S11 Hành trình | F3 (chặng hiện tại) | P6, T2, T3 |
 | S12 Cài đặt | | P1, P2, P8 |
 
 Theo chiều ngược lại (flow → màn):
 
 | Flow | Màn hình theo thứ tự |
 |---|---|
-| F1 | S02 → S03 (bước 1, 2, 3) → S04 → S02 |
-| F2 | S02 → S10 → S02 (hoặc S09 → S10) |
+| F1 | S02 → S03a → S03b → S03c → S04 → S02 |
+| F2 | S02 → S09 → S04 → S02; khó dừng: S09 → S10 → S04 |
 | F3 | S07 → S08 → S04 → S07 |
-| F4 (prototype) | S11a Con đường → S11b Thống kê → Thẻ tuần |
+| F4 (prototype) | S11a Con đường → S11b Thống kê → (chạm Mục tiêu tuần) Thẻ tuần |
 
 ---
 

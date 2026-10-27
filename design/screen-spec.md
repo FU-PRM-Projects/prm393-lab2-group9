@@ -16,19 +16,19 @@ Mỗi màn hình dùng để làm gì, hiển thị nội dung gì và thuộc f
 ### S02 · Hôm nay (tab 1)
 
 - **Để làm gì:** trả lời "Hôm nay bạn làm được gì?" và đưa người dùng vào 1 trong 3 việc chính.
-- **Nội dung:** ngày ("Thứ Bảy, 24/10"), hình hũ chiến thắng lớn với số nốt hôm nay, mascot Xong, câu hỏi chính, nút "Ghi nốt", hai lối tắt "Dừng lại" và "Thở 90 giây", thẻ gợi ý "Thử thách".
+- **Nội dung:** ngày ("Thứ Bảy, 24/10"), nút chuông và avatar ở góc trên phải, hình hũ chiến thắng lớn có các tờ nốt màu và mascot Xong, câu hỏi chính, nút "Ghi nốt", hàng 3 lối tắt tròn: "Dừng lại", "Thở 90 giây", "Thử thách".
 - **Hành động chính:** Ghi nốt.
-- **Flow:** F1, F2, F3; P1, P2, P3, P7.
+- **Flow:** F1, F2, F3; P1, P2, P3, P7, P8 (avatar → `S12`).
 
 ### S03 · Ghi nốt
 
 - **Để làm gì:** ghi một chiến thắng nhỏ trong dưới 30 giây.
 - **Bước 1 (`S03a`):** "Hôm nay bạn thấy thế nào?" — 5 ô tâm trạng (Vui, Ổn, Bình thường, Mệt, Rối) có mặt mascot, nút "Tiếp". Chọn "Rối" thì hiện thêm "Ngày rối: 1 chip là đủ." và thẻ "Sơ cứu 1 phút: 5-4-3-2-1" với nút "Làm cùng Nốt".
 - **Bước 2 (`S03b`):** "Hôm nay bạn làm được gì?" — ô "Chiến thắng nhỏ", 6 chip chọn nhanh (Dọn phòng, Giúp ai đó, Đi bộ, Ăn đủ bữa, Ngủ trước 12h, Xong 1 việc khó), nút "Tiếp", nút chữ "Bỏ qua nhật ký".
-- **Bước 3:** vài dòng nhật ký, không bắt buộc, rồi Lưu.
+- **Bước 3 (`S03c`):** "Viết thêm vài dòng?" — ô "Nhật ký hôm nay" (helper "Không bắt buộc · 68/2000 ký tự"), câu gợi ý "Bí ý? Thử trả lời: điều gì làm bạn thấy nhẹ hơn hôm nay?", nút "Lưu vào hũ", nút chữ "Bỏ qua".
 - **Biến thể AI (thiết kế sẵn cho Final Assignment):** tab "Kể tự do" → "Nốt AI sắp xếp giúp" → đang đọc (nút Loading, Huỷ) → "Nốt tìm thấy 3 điều tốt" (nhãn "Gợi ý từ AI · chạm để sửa", nút "Lưu 3 nốt vào hũ") → khi lỗi: "Nốt AI đang nghỉ một chút. Đoạn viết vẫn còn đây." + tự chọn loại nốt. Lần đầu dùng có sheet quyền riêng tư (Gửi đi / Không gửi / Bạn quyết).
 - **Dialog:** "Giữ nốt đang ghi? Nốt sẽ chờ ở Hôm nay." — Bỏ / Giữ nháp (khi bấm Back giữa chừng).
-- **Hành động chính:** Tiếp (mỗi bước).
+- **Hành động chính:** Tiếp (bước 1, 2), Lưu vào hũ (bước 3).
 - **Flow:** F1; P7, T1.
 
 ### S04 · Nốt đã vào hũ
@@ -57,7 +57,7 @@ Mỗi màn hình dùng để làm gì, hiển thị nội dung gì và thuộc f
 ### S07 · Thử thách (tab 3)
 
 - **Để làm gì:** đưa ra đúng một thẻ thử thách vừa sức.
-- **Nội dung:** chủ đề và cấp ("Dũng cảm · cấp 2", "3/5"), thẻ lớn ("DŨNG CẢM · 2 PHÚT", "Hỏi thầy 1 câu sau giờ học"), mascot Tập Trung, nút "Nhận thử thách", gợi ý "Vuốt để đổi thẻ".
+- **Nội dung:** chủ đề và cấp ("Dũng cảm · cấp 2", thanh tiến độ "3/5"), chồng thẻ với thẻ trên cùng lớn ("DŨNG CẢM · 2 PHÚT", "Hỏi thầy 1 câu sau giờ học", mascot Tập Trung, nút "Nhận thử thách"), chấm trang, gợi ý "Vuốt để đổi thẻ", nút nổi +.
 - **Hành động chính:** Nhận thử thách.
 - **Flow:** F3; P3.
 
@@ -72,7 +72,8 @@ Mỗi màn hình dùng để làm gì, hiển thị nội dung gì và thuộc f
 
 - **Để làm gì:** ghi nhận mỗi lần dừng "dopamine rẻ", nơi riêng tư (mở bằng khoá).
 - **Nội dung:** "8 lần tự chủ tháng này", nút "Mình vừa dừng lại", nút tonal "Khó dừng? Thở 90 giây", nhóm "THÓI QUEN MUỐN BỚT" (Lướt mạng xã hội, Video ngắn, Game quá giờ, Nội dung không lành mạnh, + Thêm), dòng "Giờ tỉnh · 23:00 – 01:00" có công tắc.
-- **Hành động chính:** Mình vừa dừng lại.
+- **Hành động chính:** Mình vừa dừng lại (ghi ngay và mở `S04`).
+- **Riêng tư:** khi bật "Khoá phần Tự chủ" ở `S12`, chỉ mục "Thói quen muốn bớt" bị che đến khi mở khoá; nút "Mình vừa dừng lại" luôn dùng được.
 - **Flow:** F2; P8 (khoá).
 
 ### S10 · Thở 90 giây
@@ -86,15 +87,15 @@ Mỗi màn hình dùng để làm gì, hiển thị nội dung gì và thuộc f
 
 - **Để làm gì:** nhìn lại tiến bộ, nhất là vào ngày tệ.
 - **Tab con:** Con đường · Thống kê · Lịch.
-- **S11a Con đường:** các chặng thử thách ("CHẶNG 2 · DŨNG CẢM · Bắt chuyện với người lạ · 3/5"), nhãn dán đã mở / chưa mở.
-- **S11b Thống kê:** "Nốt tuần này 18 (↑ 20%)", "Chuỗi ngày 6 · Kỷ lục 9", biểu đồ "Năng lượng mỗi ngày" (30 ngày, thang 1–5, có tooltip), "Mục tiêu tuần 5/7", "Cân bằng 5 điều tốt" (số nốt mỗi loại + gợi ý loại đang ít), "Bạn ghi nốt ngày nào?". Thẻ tuần dạng story có nút "Lưu thẻ tuần (PDF)".
+- **S11a Con đường:** thẻ chặng ("CHẶNG 2 · DŨNG CẢM · Bắt chuyện với người lạ · 3/5", chạm → `S07`), đường các nút tròn (tick = xong, ngôi sao = hiện tại, ổ khoá = chưa mở), nhãn gợi ý "Hỏi 1 người lạ · 2 phút" (chạm → `S08`).
+- **S11b Thống kê:** "Nốt tuần này 18 (↑ 20%)", "Chuỗi ngày 6 · Kỷ lục 9", biểu đồ "Năng lượng mỗi ngày" (30 ngày, thang 1–5, có tooltip), "Mục tiêu tuần 5/7", "Cân bằng 5 điều tốt" (số nốt mỗi loại + gợi ý loại đang ít), "Bạn ghi nốt ngày nào?". Chạm vòng "Mục tiêu tuần" mở Thẻ tuần dạng story có nút "Lưu thẻ tuần (PDF)".
 - **S11c Lịch năng lượng:** lưới tháng, mỗi ô có số ngày, màu và mặt mascot theo tâm trạng; chuyển Tháng / Năm; chú giải "Vui … Rối · Ý nghĩa màu". Trạng thái đang tải: skeleton "Đang tải lịch năng lượng…".
 - **Bonus AI:** "Hỏi Nốt" ("Tháng này mình tự chủ được mấy lần?" → "9 lần", có biểu đồ nhỏ và câu "Tính từ 46 nốt tháng 10 của bạn").
 - **Flow:** P6, P8, T2, T3; F4 trong prototype.
 
 ### S12 · Cài đặt
 
-- **Để làm gì:** chỉnh giờ nhắc, quyền riêng tư và tài khoản.
+- **Để làm gì:** chỉnh giờ nhắc, quyền riêng tư và tài khoản. Mở bằng avatar ở góc trên phải của 4 màn tab.
 - **Nội dung:** NHẮC NHỞ (Nhắc ghi nốt buổi tối 21:30, Giờ tỉnh 23:00 – 01:00); QUYỀN RIÊNG TƯ (Nốt AI sắp xếp giúp — "Không gửi tên, email, ảnh"; Khoá phần Tự chủ; Ẩn nội dung thông báo); TÀI KHOẢN (Email); nút "Đăng xuất".
 - **Flow:** P1, P2, P8.
 

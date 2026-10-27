@@ -27,7 +27,7 @@ Bản mô tả thiết kế hiện tại của app Nốt: màu, chữ, khoảng 
 2. **Nút chính ở nửa dưới màn hình.** Minh dùng một tay lúc nằm trên giường; nút chính và thanh tab trong vùng ngón cái.
 3. **Không phạt.** Đếm số nốt và số lần tự chủ, không đếm chuỗi bị đứt về 0. Thử thách "để mai" không bị trừ gì. Lỡ lướt quá đà vẫn được ghi nhận "Nhận ra cũng là bắt đầu tự chủ".
 4. **Ngày mệt chỉ cần chạm.** Chip chiến thắng có sẵn; bước nhật ký có thể bỏ qua.
-5. **Riêng tư là tính năng chính.** Phần Tự chủ khoá bằng PIN / sinh trắc học; thông báo có thể ẩn nội dung trên màn khoá.
+5. **Riêng tư là tính năng chính.** Danh sách "Thói quen muốn bớt" ở `S09` khoá bằng PIN / sinh trắc học (nút "Mình vừa dừng lại" vẫn dùng ngay); thông báo có thể ẩn nội dung trên màn khoá.
 6. **Không dùng màu làm tín hiệu duy nhất.** Tâm trạng luôn có màu + khuôn mặt mascot + chữ (WCAG 1.4.1).
 7. **Hoàn tác được.** Xoá nốt có dialog xác nhận và Hoàn tác 5 giây; thoát giữa chừng được giữ nháp.
 

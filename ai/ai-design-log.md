@@ -390,4 +390,22 @@ Bạn làm dùm mình luôn đi
 | Bo góc 14, 16, 32, 999 ghi "chưa có Variable" | Chấp nhận, kèm việc phải làm | Rubric "Design tokens": giá trị gán cứng bị trừ điểm; cần thêm biến `radius/*` trong Figma |
 | Giá trị handoff tự đặt (giới hạn ký tự, Hoàn tác 5 giây, lỗi sau 10 giây) | Chỉnh sửa: giữ, ghi rõ là giá trị của đặc tả | Không có trong Figma nhưng người dựng cần để không phải hỏi lại |
 
+### Đọc lại sau khi push (27/10/2026, 13:00)
+
+- **Prompt nguyên văn:**
+
+```
+Push lên rồi. Thử pull về và đọc lại toàn bộ xem đã đúng chưa
+```
+
+- **Kết quả:** 8 file trên GitHub khớp bản đã soạn. So với liên kết prototype trong Figma, Claude tìm ra các chỗ tài liệu mô tả sai: nút "Dừng lại" trên `S02` mở `S09` (không ghi ngay 1 chạm); `S03` ghi "Bước 2/3" nhưng chưa có màn bước 3; avatar ở 4 màn tab mở `S12` (không phải từ `S11`); `S05`, `S07`, `S11` có nút nổi + mở `S03`; "Đổi thẻ dễ hơn" về `S07`; "Mình vừa dừng lại" mở `S04`; chặng trên `S11a` mở `S07` / `S08`; nút chuông chưa có màn đích.
+- **Quyết định:**
+
+| Đề xuất | Quyết định | Lý do |
+|---|---|---|
+| Tiêu chí phụ "1 chạm" → sửa tài liệu thành "2 chạm" theo Figma | Chấp nhận | Ràng buộc thời gian và Figma đã có prototype chạy được; `S09` cho thấy số lần tự chủ và lối ra "Thở 90 giây" (Nielsen #3), nên giữ một màn trung gian |
+| Thêm màn `S03c · bước 3 nhật ký` vào Figma (page 03 và 06), nối "Tiếp" → `S03c` → `S04` | Chấp nhận | Nielsen #4 (nhất quán): nhãn "Bước 2/3" hứa có bước 3; ý 2 (nhật ký) cần chỗ viết ngay trong F1. Vẫn bỏ qua được để giữ tiêu chí 30 giây |
+| Sửa điều hướng trong `user-flow.md`, `screen-spec.md`, `flutter-handoff.md` theo liên kết prototype | Chấp nhận | Rubric: handoff phải không mơ hồ, Figma và tài liệu phải khớp |
+| Nút chuông: đề xuất mở `S12` mục Nhắc nhở | Chỉnh sửa: ghi là giá trị của đặc tả, chờ nối trong Figma | Figma chưa có màn thông báo; một nút không dẫn đi đâu là ngõ cụt (rubric "no dead ends") |
+
 > TODO: vòng lặp Stitch, 7 vòng sửa trên Figma (`assets/ai-iterations/`), phản biện AI theo heuristic (20/10) và ảnh `assets/stitch/` hiện vẫn thuộc bản Study Planner. Nếu giảng viên yêu cầu log theo bản mới, thêm vòng lặp và phản biện cho các màn S02, S03, S05.
