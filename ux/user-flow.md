@@ -14,7 +14,7 @@ Bộ flow: **3 flow chính** (F1–F3), **8 flow phụ** (P1–P8), **3 flow tr�
 - **4 tab cấp cao nhất** (component `BottomNav · Nốt`): Hôm nay (`S02`), Hũ (`S05`), Thử thách (`S07`), Hành trình (`S11`).
 - **Nút "Ghi nốt"** trên `S02` và **nút nổi +** ở góc dưới phải của `S05`, `S07`, `S11` mở `S03` toàn màn hình. Thông báo buổi tối cũng mở thẳng `S03`.
 - **Lối tắt trên `S02`:** 3 nút tròn "Dừng lại" (→ `S09`), "Thở 90 giây" (→ `S10`), "Thử thách" (→ `S07`).
-- **Avatar** ở góc trên phải của 4 màn tab mở `S12` Cài đặt. Nút chuông cạnh avatar chưa có màn đích trong Figma (xem mục 1.3).
+- **Avatar** ở góc trên phải của 4 màn tab mở `S12` Cài đặt. Nút chuông cạnh avatar cũng mở `S12` (mục Nhắc nhở ở đầu màn).
 - **Màn lồng** (có nút Back, không có thanh tab): `S03`, `S04`, `S06`, `S08`, `S09`, `S10`, `S12`.
 - Dialog và biến thể trạng thái không tính là màn hình riêng.
 
@@ -38,7 +38,7 @@ flowchart TD
     S02 -->|lối tắt Dừng lại| S09[S09 Tự chủ]
     S09 --> S10[S10 Thở 90 giây]
     S02 -->|lối tắt| S10
-    TAB -->|avatar| S12[S12 Cài đặt]
+    TAB -->|avatar, chuông| S12[S12 Cài đặt]
 ```
 
 ### 1.2 Danh sách màn hình (12 màn)
@@ -70,7 +70,6 @@ flowchart TD
 | Empty state | Hũ còn trống + "Ghi nốt đầu tiên" | S05 |
 | Loading | Skeleton "Đang tải lịch năng lượng…" | S11c |
 | Error state | "Chưa tải được hũ" + Thử lại | S05 |
-| Nút chuông (chưa nối) | Figma vẽ chuông ở 4 màn tab nhưng chưa có màn đích; handoff đề xuất mở `S12` mục Nhắc nhở | S02, S05, S07, S11 |
 | Gợi ý hỗ trợ | Tâm trạng "Rối" → "Sơ cứu 1 phút: 5-4-3-2-1"; trầm nhiều ngày → gợi ý người để nói chuyện / đường dây hỗ trợ | S03a, P6 |
 
 ---

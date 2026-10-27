@@ -157,7 +157,7 @@ Dùng `go_router`. Bốn tab nằm trong `StatefulShellRoute.indexedStack` để
 - Tab khác Hôm nay: Back chuyển về tab Hôm nay. Ở Hôm nay hoặc `S01`: thoát app.
 - Dialog: Back đóng dialog (tương đương nút trái).
 
-**Thành phần chung của 4 màn tab:** hàng đầu có tiêu đề (hoặc ngày ở `S02`), nút chuông và avatar 40 dp (vùng chạm 48). Avatar → `/settings`. Chuông: Figma chưa nối màn đích; đặc tả này mở `/settings` và cuộn tới mục "Nhắc nhở". `S05`, `S07`, `S11` có nút nổi + (56 dp, `Elevation/2 FAB`, cách lề phải 16, nằm trên thanh tab) → `/note/new?step=1`.
+**Thành phần chung của 4 màn tab:** hàng đầu có tiêu đề (hoặc ngày ở `S02`), nút chuông và avatar 40 dp (vùng chạm 48). Avatar → `/settings`. Chuông → `/settings` (mục "Nhắc nhở" ở đầu màn), giống prototype. `S05`, `S07`, `S11` có nút nổi + (56 dp, `Elevation/2 FAB`, cách lề phải 16, nằm trên thanh tab) → `/note/new?step=1`.
 
 **Thông báo (flow P7):** chạm thông báo nhắc tối → `/note/new?step=1`; Giờ tỉnh → `/today`; thẻ mới → `/challenges/:id`. Nếu chưa đăng nhập → `/welcome?next=…`, đăng nhập xong mới tới đích.
 
@@ -184,7 +184,7 @@ Mặc định cho mọi màn, trừ khi ghi khác:
 1. **Layout:** `Scaffold` → `CustomScrollView`: hàng đầu (ngày "Thứ Bảy, 24/10" `headlineMedium` bên trái; nút chuông và avatar bên phải) → hình hũ lớn (cao khoảng 240, có các tờ nốt màu bên trong) với mascot Xong đứng cạnh → câu hỏi "Hôm nay bạn làm được gì?" (`titleLarge`, căn giữa) → `FilledButton` "Ghi nốt" có icon + (full) → hàng 3 lối tắt tròn chia đều (gap 12): "Dừng lại", "Thở 90 giây", "Thử thách" (mỗi nút: vòng tròn 56 nền `surfaceContainerLow` + icon, nhãn `bodySmall` bên dưới). Thanh tab nổi Active = Hôm nay. Không có nút nổi +.
 2. **Components:** `Illustration/Hũ chiến thắng`, `Mascot` Xong, `Button` Filled (Ghi nốt), `ShortcutButton` (tự dựng: `InkWell` tròn + `Icon` + `Text`, vùng chạm ≥ 56 × 72), `Mascot/Avatar`, `BottomNav · Nốt[Hôm nay]`.
 3. **States:** Populated (mặc định); chưa có nốt hôm nay (hũ chỉ còn nốt cũ, không báo lỗi); có nháp chưa lưu (nút đổi chữ "Tiếp tục ghi nốt"); Offline (banner ở đầu nội dung, mọi nút vẫn dùng được vì dữ liệu ghi trên máy).
-4. **Interactions:** "Ghi nốt" → `S03` bước 1. "Dừng lại" → `S09`. "Thở 90 giây" → `S10`. "Thử thách" → `S07`. Chạm hình hũ → tab Hũ (`S05`). Avatar → `S12`. Chuông → `S12` mục Nhắc nhở (xem mục 3). Ngày tâm trạng hôm qua là Mệt / Rối: hũ "rơi ra" 1 nốt cũ, chạm để xem `S06`.
+4. **Interactions:** "Ghi nốt" → `S03` bước 1. "Dừng lại" → `S09`. "Thở 90 giây" → `S10`. "Thử thách" → `S07`. Chạm hình hũ → tab Hũ (`S05`). Avatar → `S12`. Chuông → `S12` (mục Nhắc nhở). Ngày tâm trạng hôm qua là Mệt / Rối: hũ "rơi ra" 1 nốt cũ, chạm để xem `S06`.
 5. **Navigation:** Từ đăng nhập hoặc thanh tab. Back: thoát app.
 6. **Constraints:** Nút chính ở nửa dưới màn (vùng ngón cái). Ngày dùng `DateFormat('EEEE, dd/MM', 'vi')`. Ba lối tắt có `Semantics(button: true, label: 'Dừng lại')`. Màn rộng: hũ và nút đặt 2 cột (hũ trái, nút phải).
 

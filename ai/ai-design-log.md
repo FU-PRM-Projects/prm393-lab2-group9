@@ -406,6 +406,6 @@ Push lên rồi. Thử pull về và đọc lại toàn bộ xem đã đúng ch�
 | Tiêu chí phụ "1 chạm" → sửa tài liệu thành "2 chạm" theo Figma | Chấp nhận | Ràng buộc thời gian và Figma đã có prototype chạy được; `S09` cho thấy số lần tự chủ và lối ra "Thở 90 giây" (Nielsen #3), nên giữ một màn trung gian |
 | Thêm màn `S03c · bước 3 nhật ký` vào Figma (page 03 và 06), nối "Tiếp" → `S03c` → `S04` | Chấp nhận | Nielsen #4 (nhất quán): nhãn "Bước 2/3" hứa có bước 3; ý 2 (nhật ký) cần chỗ viết ngay trong F1. Vẫn bỏ qua được để giữ tiêu chí 30 giây |
 | Sửa điều hướng trong `user-flow.md`, `screen-spec.md`, `flutter-handoff.md` theo liên kết prototype | Chấp nhận | Rubric: handoff phải không mơ hồ, Figma và tài liệu phải khớp |
-| Nút chuông: đề xuất mở `S12` mục Nhắc nhở | Chỉnh sửa: ghi là giá trị của đặc tả, chờ nối trong Figma | Figma chưa có màn thông báo; một nút không dẫn đi đâu là ngõ cụt (rubric "no dead ends") |
+| Nút chuông: nối tới `S12` mục Nhắc nhở (page 03 và 06, 27/10) | Chấp nhận, đã nối trong Figma | Figma chưa có màn thông báo; một nút không dẫn đi đâu là ngõ cụt (rubric "no dead ends") |
 
 > TODO: vòng lặp Stitch, 7 vòng sửa trên Figma (`assets/ai-iterations/`), phản biện AI theo heuristic (20/10) và ảnh `assets/stitch/` hiện vẫn thuộc bản Study Planner. Nếu giảng viên yêu cầu log theo bản mới, thêm vòng lặp và phản biện cho các màn S02, S03, S05.
